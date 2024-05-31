@@ -4,15 +4,15 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class LandlordsModel extends Model
+class UnitsModel extends Model
 {
-    protected $table            = 'landlords';
-    // protected $primaryKey       = 'id';
-    // protected $useAutoIncrement = true;
-    // protected $returnType       = 'array';
-    // protected $useSoftDeletes   = false;
-    // protected $protectFields    = true;
-    protected $allowedFields    = ['name', 'phone_number', 'email'];
+    protected $table            = 'units_two';
+    protected $primaryKey       = 'id';
+    protected $useAutoIncrement = true;
+    protected $returnType       = 'array';
+    protected $useSoftDeletes   = false;
+    protected $protectFields    = true;
+    protected $allowedFields    = ['property_id', 'unit_name', 'unit_number', 'available', 'reserved', 'occupied'];
 
     // protected bool $allowEmptyInserts = false;
     // protected bool $updateOnlyChanged = true;
@@ -20,20 +20,20 @@ class LandlordsModel extends Model
     // protected array $casts = [];
     // protected array $castHandlers = [];
 
-    // // Dates
+    // Dates
     // protected $useTimestamps = false;
     // protected $dateFormat    = 'datetime';
     // protected $createdField  = 'created_at';
     // protected $updatedField  = 'updated_at';
     // protected $deletedField  = 'deleted_at';
 
-    // // Validation
+    // Validation
     // protected $validationRules      = [];
     // protected $validationMessages   = [];
     // protected $skipValidation       = false;
     // protected $cleanValidationRules = true;
 
-    // // Callbacks
+    // Callbacks
     // protected $allowCallbacks = true;
     // protected $beforeInsert   = [];
     // protected $afterInsert    = [];
@@ -44,11 +44,21 @@ class LandlordsModel extends Model
     // protected $beforeDelete   = [];
     // protected $afterDelete    = [];
 
-    public function getLandlords()
+    public function getVacantUnits($propertyId)
     {
-        return $this->select('landlords.id, landlords.name, landlords.phone_number, landlords.email, COUNT(properties.id) as number_of_properties')
-        ->join('properties', 'landlords.id = properties.landlord_id', 'left')
-        ->groupBy('landlords.id, landlords.name, landlords.phone_number, landlords.email')
-        ->findAll();
+        return $this->where(['property_id' => $propertyId, 'available' => 'Yes'])
+                    ->countAllResults();
+    }
+
+    public function getOccupiedUnits($propertyId)
+    {
+        return $this->where(['property_id' => $propertyId, 'occupied' => 'Yes'])
+                    ->countAllResults();
+    }
+
+    public function getTotalUnits($propertyId)
+    {
+        return $this->where('property_id', $propertyId)
+                    ->countAllResults();
     }
 }
