@@ -61,4 +61,12 @@ class UnitsModel extends Model
         return $this->where('property_id', $propertyId)
                     ->countAllResults();
     }
+
+    public function getUnitsWithDetails()
+    {
+        return $this->select('units_two.id AS unit_id, properties.name AS property_name, units_two.unit_name AS unit_name, units_two.unit_number AS unit_number, units_two.available AS available, units_two.reserved AS reserved, units_two.occupied AS occupied, FORMAT(billing_two.rent, 0) AS rent, FORMAT(billing_two.commission, 0) AS commission, FORMAT(billing_two.deposit, 0) AS deposit')
+                    ->join('properties', 'units_two.property_id = properties.id', 'left')
+                    ->join('billing_two', 'units_two.id = billing_two.unit_id', 'left')
+                    ->findAll();
+    }
 }
