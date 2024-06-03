@@ -32,13 +32,20 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
   <!-- CSS Files -->
   <link id="pagestyle" href="<?= base_url('assets/css/material-dashboard.css?v=3.1.0') ?>" rel="stylesheet" />
+  <link href="<?= base_url('assets/css/styles.css') ?> " rel="stylesheet" />
   <!-- Nepcha Analytics (nepcha.com) -->
   <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
   <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
 </head>
 
 <body class="g-sidenav-show bg-gray-200">
-  <?= $this->include('partials/sidebar') ?>
+<div class="spinner-wrapper">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <?= $this->include('partials/sidebar')?>
 
   <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
     <!-- Navbar -->
@@ -276,6 +283,7 @@
   <script src="<?= base_url('assets/js/plugins/perfect-scrollbar.min.js') ?>"></script>
   <script src="<?= base_url('assets/js/plugins/smooth-scrollbar.min.js') ?>"></script>
   <script src="<?= base_url('assets/js/plugins/chartjs.min.js') ?>"></script>
+  <script src="<?= base_url('assets/js/util.js') ?>"></script>
   <script>
     var ctx = document.getElementById("chart-bars").getContext("2d");
 
