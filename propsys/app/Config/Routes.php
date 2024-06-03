@@ -16,3 +16,4 @@ $routes->get('properties', 'Properties::index');
 $routes->get('units', 'Units::index');
 $routes->get('units', 'Units::index');
 $routes->get('unitSale', 'UnitSale::index');
+$routes->get('propertySale', 'PropertySale::index');

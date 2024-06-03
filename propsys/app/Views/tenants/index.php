@@ -50,6 +50,9 @@
                                 <td class="text-center"><?= esc($tenant['tenant_status']) ?></td>
                                 <td class="text-center"><?= esc($tenant['property_name']) ?></td>
                                 <td class="text-center"><?= esc($tenant['unit_number']) ?></td>
+                                <td class="text-center"><a href=""><i class="fa fa-pen text-success me-2"></i></a>
+                                <a href=""><i class="fa fa-trash text-danger"></i></a>
+                                </td>
 
                             </tr>
                         <?php endforeach ?>

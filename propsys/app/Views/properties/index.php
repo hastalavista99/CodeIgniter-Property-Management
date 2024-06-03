@@ -50,6 +50,9 @@
                                 <td class="text-center"><?= esc($property['vacant_units']) ?></td>
                                 <td class="text-center"><?= esc($property['occupied_units']) ?></td>
                                 <td class="text-center"><?= esc($property['total_units']) ?></td>
+                                <td class="text-center"><a href=""><i class="fa fa-pen text-success me-2"></i></a>
+                                <a href=""><i class="fa fa-trash text-danger"></i></a>
+                                </td>
 
 
                             </tr>

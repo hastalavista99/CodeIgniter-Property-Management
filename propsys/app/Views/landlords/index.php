@@ -44,6 +44,9 @@
                                 <td class="text-center"><?= esc($landlord['phone_number']) ?></td>
                                 <td class="text-center"><?= esc($landlord['email']) ?></td>
                                 <td class="text-center"><?= esc($landlord['number_of_properties']) ?></td>
+                                <td class="text-center"><a href=""><i class="fa fa-pen text-success me-2"></i></a>
+                                <a href=""><i class="fa fa-trash text-danger"></i></a>
+                                </td>
 
                             </tr>
                         <?php endforeach ?>

@@ -1,5 +1,6 @@
 <?= $this->extend('layouts/main') ?>
-<?= $this->section('title') ?>Units<?= $this->endSection() ?>
+<?= $this->section('title') ?><?=  $title ?><?= $this->endSection() ?>
+
 
 
 
@@ -18,7 +19,7 @@
             <div>
               <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#landlordModal">
                 <i class="material-icons opacity-10 me-2">domain_add</i>
-                Units
+                Add
               </button>
             </div>
           </div>
@@ -30,26 +31,26 @@
                         <tr>
                             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
                             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Property</th>
-                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Unit</th>
-                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Commission</th>
-                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">deposit</th>
-                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">price</th>
+                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Location</th>
+                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Landlord</th>
+                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">units</th>
+                            
                             <th class="text-secondary opacity-7"></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($units as $unit) : ?>
+                        <?php foreach ($properties as $property) : ?>
 
                             <tr>
-                                <td class="text-center"><?= esc($unit['unit_id']) ?></td>
-                                <td class="text-center"><?= esc($unit['property_name']) ?></td>
-                                <td class="text-center"><?= esc($unit['unit_name']) ?></td>
-                                <td class="text-center"><span class="text-xxs">KES </span><?= esc($unit['commission']) ?></td>
-                                <td class="text-center"><span class="text-xxs">KES </span><?= esc($unit['deposit']) ?></td>
-                                <td class="text-center"><span class="text-xxs">KES </span><?= esc($unit['price']) ?></td>
+                                <td class="text-center"><?= esc($property['property_id']) ?></td>
+                                <td class="text-center"><?= esc($property['property_name']) ?></td>
+                                <td class="text-center"><?= esc($property['location']) ?></td>
+                                <td class="text-center"><?= esc($property['landlord_name']) ?></td>
+                                <td class="text-center"><?= esc($property['number_of_units']) ?></td>
                                 <td class="text-center"><a href=""><i class="fa fa-pen text-success me-2"></i></a>
                                 <a href=""><i class="fa fa-trash text-danger"></i></a>
                                 </td>
+                                
                                 
 
                             </tr>
