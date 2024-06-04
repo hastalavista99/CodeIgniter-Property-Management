@@ -4,7 +4,7 @@
 
 
 <?= $this->section('content') ?>
-<?= $this->include('partials/sidebar') ?>
+
 
 <div class="col-12">
     <div class="card my-4">

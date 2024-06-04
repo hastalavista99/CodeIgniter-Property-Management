@@ -17,3 +17,6 @@ $routes->get('units', 'Units::index');
 $routes->get('units', 'Units::index');
 $routes->get('unitSale', 'UnitSale::index');
 $routes->get('propertySale', 'PropertySale::index');
+$routes->get('accounts', 'Accounts::index');
+$routes->get('charts', 'Accounts::charts');
+$routes->get('approval', 'Accounts::approvalList');
