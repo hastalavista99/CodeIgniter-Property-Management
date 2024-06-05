@@ -30,7 +30,7 @@
                         <li><a class="list-group-item list-group-item-action text-center text-capitalize fs-4" href="payment_report">
                                 Accounting Reports
                             </a></li>
-                            <li><a class="list-group-item list-group-item-action text-center text-capitalize fs-4" href="period_close">
+                            <li><a class="list-group-item list-group-item-action text-center text-capitalize fs-4" href="close_period">
                                 Close Month/Year
                             </a></li>
                     </ul>

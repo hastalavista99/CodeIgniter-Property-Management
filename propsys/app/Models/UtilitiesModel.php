@@ -4,15 +4,15 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class PaymentsModel extends Model
+class UtilitiesModel extends Model
 {
-    protected $table            = 'payment';
+    protected $table            = 'utilities';
     protected $primaryKey       = 'id';
     // protected $useAutoIncrement = true;
     // protected $returnType       = 'array';
     // protected $useSoftDeletes   = false;
     // protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields    = ['tenant_id', 'amount', 'month', 'year'];
 
     // protected bool $allowEmptyInserts = false;
     // protected bool $updateOnlyChanged = true;
@@ -44,13 +44,8 @@ class PaymentsModel extends Model
     // protected $beforeDelete   = [];
     // protected $afterDelete    = [];
 
-    public function getPayments()
+    public function getUtilities()
     {
-        return $this->select('payment.id, sell.id AS sell_id, sell.name AS buyer_name, property_sale.name AS property_name, units_sale.name AS unit_name, landlords.name AS landlord_name, FORMAT(payment.amount, 0) AS amount, payment.type_payment, payment.date')
-                    ->join('sell', 'sell.id = payment.buyer_id', 'left')
-                    ->join('units_sale', 'units_sale.id = sell.unit_id', 'left')
-                    ->join('property_sale', 'property_sale.id = units_sale.property_sale_id', 'left')
-                    ->join('landlords', 'landlords.id = property_sale.landlord_id', 'left')
-                    ->findAll();
+        return $this->findAll();
     }
 }

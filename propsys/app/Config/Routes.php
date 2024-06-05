@@ -9,6 +9,8 @@ use App\Controllers\Dashboard;
  */
 $routes->get('/', 'Home::index');
 
+$routes->get('auth', 'Auth::index');
+$routes->get('login', 'Auth::index');
 $routes->get('dashboard', 'Dashboard::index');
 $routes->get('landlords', 'Landlords::index');
 $routes->get('tenants', 'Tenants::index');
@@ -20,3 +22,6 @@ $routes->get('propertySale', 'PropertySale::index');
 $routes->get('accounts', 'Accounts::index');
 $routes->get('charts', 'Accounts::charts');
 $routes->get('approval', 'Accounts::approvalList');
+$routes->get('payment_report', 'Accounts::payments');
+$routes->get('tenant_report', 'Accounts::tenants');
+$routes->get('close_period', 'Accounts::close');
