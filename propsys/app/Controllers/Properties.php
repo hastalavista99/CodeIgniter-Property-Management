@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
 use App\Models\PropertiesModel;
 use App\Models\UnitsModel;
+use App\Models\UserModel;
 use SebastianBergmann\CodeCoverage\Report\Xml\Unit;
 
 class Properties extends BaseController
@@ -15,7 +16,14 @@ class Properties extends BaseController
 
         $propertyModel = new PropertiesModel();
         $unitModel = new UnitsModel();
-        $data['properties'] = [];
+        $userModel = new UserModel();
+        $loggedInUserId = session()->get('loggedInUser');
+        $userInfo = $userModel->find($loggedInUserId);
+        $data = [
+            'properties' => [],
+            'userInfo' => $userInfo
+        ];
+    
 
         $properties = $propertyModel->getProperties();
         foreach ($properties as $property) {

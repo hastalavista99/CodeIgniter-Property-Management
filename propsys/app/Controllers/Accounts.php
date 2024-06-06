@@ -7,15 +7,19 @@ use App\Models\AccountsModel;
 use App\Models\PaymentsModel;
 use App\Models\RentModel;
 use App\Models\UtilitiesModel;
+use App\Models\UserModel;
 use CodeIgniter\HTTP\ResponseInterface;
 
 class Accounts extends BaseController
 {
     public function index()
     {
-       
+        $userModel = new UserModel();
+        $loggedInUserId = session()->get('loggedInUser');
+        $userInfo = $userModel->find($loggedInUserId);
         $data = [
             'title' => 'Accounts',
+            'userInfo' => $userInfo
             
         ];
 
@@ -46,9 +50,13 @@ class Accounts extends BaseController
     public function payments()
     {
         $model = new PaymentsModel();
+        $userModel = new UserModel();
+        $loggedInUserId = session()->get('loggedInUser');
+        $userInfo = $userModel->find($loggedInUserId);
         $data = [
             'title' => 'Payments',
-            'payments' => $model->getPayments()
+            'payments' => $model->getPayments(),
+            'userInfo' => $userInfo
         ];
 
         return view('accounts/payments', $data);
@@ -58,10 +66,14 @@ class Accounts extends BaseController
     {
         $rentModel = new RentModel();
         $utilitiesModel = new UtilitiesModel();
+        $userModel = new UserModel();
+        $loggedInUserId = session()->get('loggedInUser');
+        $userInfo = $userModel->find($loggedInUserId);
         $data = [
             'title' => 'Tenants',
             'rents' => $rentModel->getRent(),
-            'utilities' => $utilitiesModel->getUtilities()
+            'utilities' => $utilitiesModel->getUtilities(),
+            'userInfo' => $userInfo
         ];
         return view('accounts/tenants', $data);
     }

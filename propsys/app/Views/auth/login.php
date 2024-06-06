@@ -40,40 +40,43 @@
 
                                 </div>
                             </div>
-                            <?= csrf_field() ?>
-
-                            <?php if (session()->getFlashdata('fail')) : ?>
-                                <div class="alert alert-danger">
-                                    <i class="exclamation-triangle-fill me-2"></i>
-                                    <?= session()->getFlashdata('fail') ?>
-                                </div>
-                            <?php endif; ?>
-
-                            <?php if (isset($validation)) : ?>
-                                <div class="alert alert-danger">
-                                    <i class="exclamation-triangle-fill me-2"></i>
-                                    <?= $validation->listErrors() ?>
-                                </div>
-                            <?php endif; ?>
 
                             <div class="card-body">
 
                                 <form role="form" id="signupForm" class="text-start" method="post">
                                     <?= csrf_field() ?>
 
-                                    <?php if (session()->getFlashdata('fail')) : ?>
-                                        <div class="alert alert-danger">
-                                            <i class="exclamation-triangle-fill me-2"></i>
+                                    <?php
+                                    if (!empty(session()->getFlashdata('success'))) {
+                                    ?>
+                                        <div class="alert alert-success text-white alert-dismissible fade show">
+                                            <span class="alert-icon align-middle">
+                                                <span class="material-icons text-md">
+                                                    thumb_up
+                                                </span>
+                                            </span>
+                                            <?= session()->getFlashdata('success') ?>
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                    <?php
+                                    } else if (!empty(session()->getFlashdata('fail'))) {
+                                    ?>
+                                        <div class="alert alert-danger text-white alert-dismissible fade show">
+                                            <span class="alert-icon align-middle">
+                                                <span class="material-icons text-md">
+                                                    warning
+                                                </span>
+                                            </span>
                                             <?= session()->getFlashdata('fail') ?>
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
                                         </div>
-                                    <?php endif; ?>
-
-                                    <?php if (isset($validation)) : ?>
-                                        <div class="alert alert-danger">
-                                            <i class="exclamation-triangle-fill me-2"></i>
-                                            <?= $validation->listErrors() ?>
-                                        </div>
-                                    <?php endif; ?>
+                                    <?php
+                                    }
+                                    ?>
                                     <div class="my-3">
                                         <!-- <label class="form-label">Email</label> -->
                                         <input type="text" name="name" class="form-control ps-2" value="" placeholder="Username" autofocus required>

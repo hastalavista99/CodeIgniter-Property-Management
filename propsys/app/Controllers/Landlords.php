@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\LandlordsModel;
+use App\Models\UserModel;
 use CodeIgniter\HTTP\ResponseInterface;
 
 class Landlords extends BaseController
@@ -11,9 +12,14 @@ class Landlords extends BaseController
     public function index()
     {
         $model = model(LandlordsModel::class);
+        $userModel = new UserModel();
+        $loggedInUserId = session()->get('loggedInUser');
+        $userInfo = $userModel->find($loggedInUserId);
+
         $data = [
             'landlords' => $model->getLandlords(),
             'title' => 'Landlords',
+            'userInfo' => $userInfo
 
         ];
 
