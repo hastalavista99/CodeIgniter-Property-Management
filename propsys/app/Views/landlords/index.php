@@ -23,6 +23,39 @@
       </div>
     </div>
     <div class="card-body px-0 pb-2">
+      <div class="container">
+      <?php
+                if (!empty(session()->getFlashdata('success'))) {
+                ?>
+                    <div class="alert alert-success text-white alert-dismissible fade show">
+                    <span class="alert-icon align-middle">
+                            <span class="material-icons text-md">
+                                thumb_up
+                            </span>
+                        </span>
+                        <?= session()->getFlashdata('success') ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <?php
+                } else if (!empty(session()->getFlashdata('fail'))) {
+                ?>
+                    <div class="alert alert-danger text-white alert-dismissible fade show">
+                        <span class="alert-icon align-middle">
+                            <span class="material-icons text-md">
+                                warning
+                            </span>
+                        </span>
+                        <?= session()->getFlashdata('fail') ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <?php
+                }
+                ?>
+      </div>
       <div class="table-responsive p-0">
         <table class="table align-items-center mb-0">
           <thead>
@@ -52,14 +85,15 @@
             <?php endforeach ?>
           </tbody>
         </table>
+        
       </div>
     </div>
   </div>
 </div>
 
 <!-- insert Modal -->
-<div class="modal" id="landlordModal">
-  <div class="modal-dialog">
+<div class="modal fade" id="landlordModal">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content" style="width: 150%">
 
       <!-- Modal Header -->

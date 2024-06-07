@@ -23,4 +23,44 @@ class Tenants extends BaseController
         ];
         return view('tenants/index', $data);
     }
+
+    public function createTenant()
+    {
+        helper('form');
+
+        // get post info
+        $name = $this->request->getPost('name');
+        $email = $this->request->getPost('email');
+        $phone = $this->request->getPost('phone_number');
+        $idNumber = $this->request->getPost('id_number');
+
+        $data = [
+            'name' => $name,
+            'email' => $email,
+            'phone_number' => $phone,
+            'id_number' => $idNumber
+        ];
+
+        $tenantModel = new TenantModel();
+        $query = $tenantModel->save($data);
+
+        if(!$query) {
+            return redirect()->back()->with('fail', 'Saving Tenant Failed');
+        } else {
+            return redirect()->back()->with('success', 'Saved Tenant Successfully');
+        }
+    }
+
+    public function assignPage()
+    {
+        $model = new UserModel();
+        $loggedId = session()->get('loggedInUser');
+        $userInfo = $model->find($loggedId);
+
+        $data = [
+            'title' => 'Assign Tenant',
+            'userInfo' => $userInfo
+        ];
+        return view('tenants/assign', $data);
+    }
 }

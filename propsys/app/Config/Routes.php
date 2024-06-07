@@ -19,7 +19,10 @@ $routes->group('', ['filter' => 'AuthCheck'], function ($routes) {
     $routes->post('registerUser', 'Auth::registerUser');
     $routes->get('dashboard', 'Dashboard::index');
     $routes->get('landlords', 'Landlords::index');
+    $routes->post('insertLandlord', 'Landlords::insertLandlord');
     $routes->get('tenants', 'Tenants::index');
+    $routes->post('createTenant', 'Tenants::createTenant');
+    $routes->get('assign', 'Tenants::assignPage');
     $routes->get('properties', 'Properties::index');
     $routes->get('units', 'Units::index');
     $routes->get('units', 'Units::index');

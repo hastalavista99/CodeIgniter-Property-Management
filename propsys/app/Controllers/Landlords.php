@@ -43,11 +43,12 @@ class Landlords extends BaseController
 
         $model = new LandlordsModel();
         $query = $model->save($data);
-        if($query) {
+        if(!$query) {
             return redirect()->back()->with('fail', 'Saving Landlord Failed');
         } else {
             return redirect()->back()->with('success', 'Saved Landlord');
         }
 
     }
+
 }

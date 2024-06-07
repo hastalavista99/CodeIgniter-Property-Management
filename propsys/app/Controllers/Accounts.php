@@ -29,10 +29,14 @@ class Accounts extends BaseController
     public function charts()
     {
         $model = new AccountsModel();
+        $userModel = new UserModel();
+        $loggedInUserId = session()->get('loggedInUser');
+        $userInfo = $userModel->find($loggedInUserId);
 
         $data = [
             'title' => 'Chart Of Accounts',
-            'accounts' => $model->getAccounts()
+            'accounts' => $model->getAccounts(),
+            'userInfo' => $userInfo
         ];
 
         return view('accounts/accounts_chart', $data);
