@@ -90,7 +90,7 @@
                     <a href="<?= site_url('assign?id='.$tenant['id'])?>" class="text-success text-uppercase text-xs">Assign</a>
 
                   <?php } else {?>
-                    <a href="<?= site_url('vacate')?>" class="text-warning text-uppercase text-xs">vacate</a>
+                    <a href="<?= site_url('vacate?tenant='.$tenant['id'].'&prop='.$tenant['property_name']. '&unit='.$tenant['unit_number'])?>" class="text-warning text-uppercase text-xs">vacate</a>
                  <?php }?>
                   
                 </td>

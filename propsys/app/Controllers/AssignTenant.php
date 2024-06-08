@@ -7,6 +7,7 @@ use App\Models\UserModel;
 use App\Models\PropertiesModel;
 use App\Models\TenantModel;
 use App\Models\UnitsModel;
+use App\Models\VacateModel;
 use CodeIgniter\HTTP\ResponseInterface;
 
 class AssignTenant extends BaseController
@@ -64,5 +65,73 @@ class AssignTenant extends BaseController
             session()->setFlashdata('success', 'Assigned Tenant Successfully');
             return redirect()->to('tenants')->withInput();
         }
+    }
+
+    public function vacate()
+    {
+        helper(['form', 'url']);
+
+        $id = $this->request->getGet('tenant');
+        $property = $this->request->getGet('prop');
+        $unit = $this->request->getGet('unit');
+        $model = new TenantModel();
+        $userModel = new UserModel();
+        $loggedId = session()->get('loggedInUser');
+        $userInfo = $userModel->find($loggedId);
+
+
+        $data = [
+            'title' => 'Vacate',
+            'tenant' => $model->find($id),
+            'property' => $property,
+            'unit' => $unit,
+            'userInfo' => $userInfo,
+            'tenantId' => $id
+        ];
+
+        return view('tenants/vacate', $data);
+    }
+
+    public function vacateTenant()
+    {
+        helper(['form', 'url']);
+
+        $comment = $this->request->getPost('comment');
+        $tenant = $this->request->getGet('tenant');
+
+        $data = [
+            'tenant_id' => $tenant,
+            'comment' => $comment
+        ];
+
+        $tenantData = [
+            'tenant_status' => 'unassigned',
+            'property_id' => NULL,
+            'unit_id' => NULL
+        ];
+
+        $vacateModel = new VacateModel();
+        $tenantModel = new TenantModel();
+
+
+        try {
+            // First query
+            if (!$vacateModel->save($data)) {
+                throw new \Exception('Failed to save vacate data');
+            }
+
+            // Second query
+            if (!$tenantModel->update($tenant, $tenantData)) {
+                throw new \Exception('Failed to update tenant data');
+            }
+
+            // If both queries succeed
+            session()->setFlashdata('success', 'Vacated Tenant Successfully');
+        } catch (\Exception $e) {
+            // If any query fails
+            session()->setFlashdata('fail', $e->getMessage());
+        }
+
+        return redirect()->to('tenants')->withInput();
     }
 }
