@@ -55,23 +55,78 @@
                 <?php
                 }
                 ?>
+
+                <form class="row g-3 my-1" action="<?= site_url('assignTenant?id=' . $id) ?>" method="post">
+                <?= csrf_field()?>
+                    <div class="col-md-3">
+                        <label for="property" class="form-label">Property Name</label>
+                        <select id="property" name="property_Select" class="form-select ps-2">
+                            <option value="" selected>-- Select Property --</option>
+                            <?php foreach ($properties as $property) : ?>
+                                <option value="<?= $property['id'] ?>"><?= esc($property['name']) ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="unit" class="form-label">Unit Number</label>
+                        <select id="unit" name="unitSelect" class="form-select ps-2">
+                            <option value="" selected>-- Select Unit --</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="type_of" class="form-label">Rent or Lease</label>
+                        <select name="contract" id="type_of" class="form-select ps-2">
+                            <option value="" selected>-- Choose... --</option>
+                            <option value="rent">Rent</option>
+                            <option value="lease">Lease</option>
+                            <option value="hire">Hire</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="lease" class="form-label" id="leaseLabel" style="display: none;">Duration</label>
+                        <select name="leaseSelect" id="lease" class="form-select ps-2" style="display: none;">
+                            <option value="three">3-month</option>
+                            <option value="six">6-month</option>
+                            <option value="twelve">12-month</option>
+                        </select>
+                    </div>
+                    <div class="d-flex align-content-end justify-content-end me-3">
+                        <button type="submit" name="assign" id="submitAssign" class="btn btn-primary">Assign</button>
+                    </div>
+                </form>
+
+                <script>
+                    $(document).ready(function() {
+                        $('#property').change(function() {
+                            var propertyId = $(this).val();
+                            $.ajax({
+                                url: "<?= site_url('assignTenant/getUnits') ?>",
+                                type: 'POST',
+                                data: {
+                                    property_id: propertyId
+                                },
+                                success: function(data) {
+                                    $('#unit').empty();
+                                    $('#unit').append('<option value="" selected>-- Select Unit --</option>');
+                                    $.each(data, function(index, unit) {
+                                        $('#unit').append('<option value="' + unit.id + '">' + unit.unit_number + '</option>');
+                                    });
+                                }
+                            });
+                        });
+
+                        $('#type_of').change(function() {
+                            if ($(this).val() === 'lease') {
+                                $('#leaseLabel').show();
+                                $('#lease').show();
+                            } else {
+                                $('#leaseLabel').hide();
+                                $('#lease').hide();
+                            }
+                        });
+                    });
+                </script>
             </div>
-            <form action="<?= site_url('assignTenant') ?>" method="post">
-                <div class="input-group input-group-static my-3">
-                    <label class="">Email address</label>
-                    <input type="email" class="form-control">
-                </div>
-                <div class="input-group input-group-static mb-4">
-                    <label for="exampleFormControlSelect1" class="ms-0">Example select</label>
-                    <select class="form-control" id="exampleFormControlSelect1">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                    </select>
-                </div>
-            </form>
         </div>
     </div>
 </div>

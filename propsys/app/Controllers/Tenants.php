@@ -51,16 +51,4 @@ class Tenants extends BaseController
         }
     }
 
-    public function assignPage()
-    {
-        $model = new UserModel();
-        $loggedId = session()->get('loggedInUser');
-        $userInfo = $model->find($loggedId);
-
-        $data = [
-            'title' => 'Assign Tenant',
-            'userInfo' => $userInfo
-        ];
-        return view('tenants/assign', $data);
-    }
 }

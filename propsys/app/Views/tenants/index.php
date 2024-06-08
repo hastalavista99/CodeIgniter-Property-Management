@@ -87,7 +87,7 @@
                 <td class="text-center"><?= esc($tenant['unit_number']) ?></td>
                 <td class="text-center">
                   <?php if($tenant['tenant_status'] == 'unassigned'){ ?>
-                    <a href="<?= site_url('assign')?>" class="text-success text-uppercase text-xs">Assign</a>
+                    <a href="<?= site_url('assign?id='.$tenant['id'])?>" class="text-success text-uppercase text-xs">Assign</a>
 
                   <?php } else {?>
                     <a href="<?= site_url('vacate')?>" class="text-warning text-uppercase text-xs">vacate</a>

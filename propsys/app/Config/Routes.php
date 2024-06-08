@@ -22,7 +22,9 @@ $routes->group('', ['filter' => 'AuthCheck'], function ($routes) {
     $routes->post('insertLandlord', 'Landlords::insertLandlord');
     $routes->get('tenants', 'Tenants::index');
     $routes->post('createTenant', 'Tenants::createTenant');
-    $routes->get('assign', 'Tenants::assignPage');
+    $routes->get('assign', 'AssignTenant::index');
+    $routes->post('assignTenant', 'AssignTenant::assign');
+    $routes->post('assignTenant/getUnits', 'AssignTenant::getUnits');
     $routes->get('properties', 'Properties::index');
     $routes->get('units', 'Units::index');
     $routes->get('units', 'Units::index');
