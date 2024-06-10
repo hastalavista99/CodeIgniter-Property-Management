@@ -86,13 +86,13 @@
                 <td class="text-center"><?= esc($tenant['property_name']) ?></td>
                 <td class="text-center"><?= esc($tenant['unit_number']) ?></td>
                 <td class="text-center">
-                  <?php if($tenant['tenant_status'] == 'unassigned'){ ?>
-                    <a href="<?= site_url('assign?id='.$tenant['id'])?>" class="text-success text-uppercase text-xs">Assign</a>
+                  <?php if ($tenant['tenant_status'] == 'unassigned') { ?>
+                    <a href="<?= site_url('assign?id=' . $tenant['id']) ?>" class="text-success text-uppercase text-xs">Assign</a>
 
-                  <?php } else {?>
-                    <a href="<?= site_url('vacate?tenant='.$tenant['id'].'&prop='.$tenant['property_name']. '&unit='.$tenant['unit_number'])?>" class="text-warning text-uppercase text-xs">vacate</a>
-                 <?php }?>
-                  
+                  <?php } else { ?>
+                    <a href="<?= site_url('vacate?tenant=' . $tenant['id'] . '&prop=' . $tenant['property_name'] . '&unit=' . $tenant['unit_number']) ?>" class="text-warning text-uppercase text-xs">vacate</a>
+                  <?php } ?>
+
                 </td>
                 <td class="text-center">
                   <a href=""><i class="fa fa-pen text-success me-2"></i></a>
@@ -129,24 +129,32 @@
           <?= csrf_field() ?>
           <div class="row g-3 my-1">
 
-            <div class="col-md-12">
+            <div class="input-group input-group-outline my-3 col-md-12">
               <label for="tenantName" class="form-label">Name:</label>
               <input type="text" class="form-control ps-2" id="tenantName" name="name" autocomplete="off">
             </div>
+            <div class="col-md-6">
+              <div class="input-group input-group-outline my-3">
+                <label for="tenantEmail" class="form-label">Email:</label>
+                <input type="email" class="form-control ps-2" id="tenantEmail" name="email" autocomplete="off">
+              </div>
+            </div>
 
             <div class="col-md-6">
-              <label for="tenantEmail" class="form-label">Email:</label>
-              <input type="email" class="form-control ps-2" id="tenantEmail" name="email" autocomplete="off">
-            </div>
-            <div class="col-md-6">
-              <label for="tenantPhone" class="form-label">Phone Number:</label>
-              <input type="text" class="form-control ps-2" id="tenantPhone" name="phone_number" autocomplete="off">
+              <div class="input-group input-group-outline my-3">
+                <label for="tenantPhone" class="form-label">Phone Number:</label>
+                <input type="text" class="form-control ps-2" id="tenantPhone" name="phone_number" autocomplete="off">
+              </div>
             </div>
 
             <div class="col-md-3">
-              <label for="tenantId" class="form-label">Identity No / Passport:</label>
-              <input type="text" class="form-control ps-2" id="tenantId" name="id_number" autocomplete="off">
+              <div class="input-group input-group-outline my-3">
+                <label for="tenantId" class="form-label">ID No.</label>
+                <input type="text" class="form-control ps-2" id="tenantId" name="id_number" autocomplete="off">
+              </div>
             </div>
+
+
 
 
             <div class="col-12 d-flex align-content-end justify-content-end">
@@ -175,14 +183,14 @@
       <!-- Modal Body -->
       <div class="modal-body">
         <form class="row g-3 my-1" action="" method="post">
-          <div class="col-md-4">
+          <div class="input-group input-group-outline col-md-4">
             <label for="property" class="form-label">Property Name</label>
             <select id="property" name="property_Select" class="form-select ps-2">
               <option value="" selected>-- Select Property --</option>
-              
+
             </select>
           </div>
-          <div class="col-md-4">
+          <div class="input-group input-group-outline col-md-4">
             <label for="unit" class="form-label">Unit Name</label>
             <select id="unit" name="unitSelect" class="form-select ps-2">
               <option value="" selected>-- Select Unit --</option>
@@ -190,7 +198,7 @@
             </select>
 
           </div>
-          <div class="col-md-4">
+          <div class="input-group input-group-outline col-md-4">
             <label for="type_of" class="form-label">Rent or Lease</label>
             <select name="" id="type_of" class="form-select ps-2">
               <option value="" selected>-- Choose... --</option>

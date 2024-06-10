@@ -107,17 +107,17 @@
       <!-- Modal Body -->
       <div class="modal-body">
         <form action="<?= site_url('insertLandlord') ?>" method="post">
-          <div class="form-group col-md-12">
-            <label for="landlordName" class="form-label">Name:</label>
+          <div class="input-group input-group-outline col-md-12 my-3">
+            <label for="landlordName" class="form-label">Name</label>
             <input type="text" class="form-control ps-2" id="landlordName" name="name" autocomplete="off">
           </div>
 
-          <div class="form-group col-md-6">
-            <label for="landlordEmail" class="form-label">Email:</label>
+          <div class="input-group input-group-outline col-md-6 my-3">
+            <label for="landlordEmail" class="form-label">Email</label>
             <input type="email" class="form-control ps-2" id="landlordEmail" name="email" autocomplete="off">
           </div>
-          <div class="form-group col-md-5">
-            <label for="landlordPhone" class="form-label">Phone Number:</label>
+          <div class="input-group input-group-outline col-md-5 my-3">
+            <label for="landlordPhone" class="form-label">Phone Number</label>
             <input type="text" class="form-control ps-2" id="landlordPhone" name="phone_number" autocomplete="off">
           </div>
 

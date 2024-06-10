@@ -7,6 +7,8 @@ use CodeIgniter\HTTP\ResponseInterface;
 use App\Models\PropertiesModel;
 use App\Models\UnitsModel;
 use App\Models\UserModel;
+use App\Models\LandlordsModel;
+use App\Models\PropertyType;
 use SebastianBergmann\CodeCoverage\Report\Xml\Unit;
 
 class Properties extends BaseController
@@ -17,11 +19,16 @@ class Properties extends BaseController
         $propertyModel = new PropertiesModel();
         $unitModel = new UnitsModel();
         $userModel = new UserModel();
+        $landlord = new LandlordsModel();
+        $type = new PropertyType();
         $loggedInUserId = session()->get('loggedInUser');
         $userInfo = $userModel->find($loggedInUserId);
         $data = [
+            'title' => 'Properties',
             'properties' => [],
-            'userInfo' => $userInfo
+            'userInfo' => $userInfo,
+            'landlords' => $landlord->findAll(),
+            'types' => $type->findAll()
         ];
     
 
@@ -36,5 +43,37 @@ class Properties extends BaseController
         }
 
         return view('properties/index', $data);
+    }
+
+    public function insertProperty()
+    {
+        helper(['form', 'url']);
+
+        $name = $this->request->getPost('name');
+        $location = $this->request->getPost('location');
+        $landlord = $this->request->getPost('landlord');
+        $type = $this->request->getPost('type');
+        $active = $this->request->getPost('active');
+
+        $active_status = $active ? 'active' : 'inactive';
+
+        $data = [
+            'name' => $name,
+            'location' => $location,
+            'landlord_id' => $landlord,
+            'type_id' => $type,
+            'active_status' => $active_status
+        ];
+
+        $model = new PropertiesModel();
+        $query = $model->save($data);
+
+        if(!$query) {
+            return redirect()->back()->with('fail', 'Saving Property Failed');
+        } else {
+            return redirect()->back()->with('success', 'Saved Property Successfully');
+        }
+
+
     }
 }
