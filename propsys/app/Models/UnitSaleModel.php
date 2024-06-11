@@ -12,7 +12,7 @@ class UnitSaleModel extends Model
     // protected $returnType       = 'array';
     // protected $useSoftDeletes   = false;
     // protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields    = ['property_sale_id', 'name', 'description', 'commission', 'deposit', 'price', 'booked', 'sold'];
 
     // protected bool $allowEmptyInserts = false;
     // protected bool $updateOnlyChanged = true;
