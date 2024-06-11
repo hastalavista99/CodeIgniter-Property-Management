@@ -20,8 +20,13 @@ class Auth extends BaseController
     {
 
         helper('form');
+
+        $userModel = new UserModel();
+        $loggedId = session()->get('loggedInUser');
+        $userInfo = $userModel->find($loggedId);
         $data = [
             'title' => 'New User',
+            'userInfo' => $userInfo
 
         ];
         return view('auth/register', $data);

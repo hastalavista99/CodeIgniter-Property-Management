@@ -147,15 +147,15 @@
 
 
           <div class="form-check">
-            <input class="form-check-input" type="radio" value="active" id="fcustomCheck1"  name="status" >
+            <input class="form-check-input" type="radio" value="available" id="fcustomCheck1"  name="status" >
             <label class="custom-control-label" for="customCheck1">Available?</label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" value="active" id="fcustomCheck1"  name="status" >
+            <input class="form-check-input" type="radio" value="reserved" id="fcustomCheck1"  name="status" >
             <label class="custom-control-label" for="customCheck1">Reserved?</label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" value="active" id="fcustomCheck1"  name="status" >
+            <input class="form-check-input" type="radio" value="occupied" id="fcustomCheck1"  name="status" >
             <label class="custom-control-label" for="customCheck1">Occupied?</label>
           </div>
 

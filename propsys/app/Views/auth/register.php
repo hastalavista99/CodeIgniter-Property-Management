@@ -24,7 +24,7 @@
                 if (!empty(session()->getFlashdata('success'))) {
                 ?>
                     <div class="alert alert-success text-white alert-dismissible fade show">
-                    <span class="alert-icon align-middle">
+                        <span class="alert-icon align-middle">
                             <span class="material-icons text-md">
                                 thumb_up
                             </span>
@@ -55,34 +55,43 @@
 
                     <?= csrf_field() ?>
 
-                    <div class="col-6 form-group mb-3">
-                        <label for="">Name</label>
-                        <input type="text" name="name" id="" class="form-control ps-2" value="<?= set_value('name') ?>">
+                    <div class="col-6">
+                        <div class="input-group input-group-outline mb-3">
+                            <label for="" class="form-label">Name</label>
+                            <input type="text" name="name" id="" class="form-control ps-2" value="<?= set_value('name') ?>">
 
+                        </div>
                     </div>
-                    <div class="col-6 form-group mb-3">
-                        <label for="">Email</label>
-                        <input type="text" name="email" id="" class="form-control ps-2" value="<?= set_value('email') ?>">
 
+                    <div class="col-6">
+                        <div class="input-group input-group-outline mb-3">
+                            <label for="" class="form-label">Email</label>
+                            <input type="text" name="email" id="" class="form-control ps-2" value="<?= set_value('email') ?>">
+
+                        </div>
                     </div>
-                    <div class="form-group mb-3 ">
-                        <label for="password">Password</label>
+
+                    <div class="input-group input-group-outline mb-3 ">
+                        <label for="password" class="form-label">Password</label>
                         <input type="password" name="password" id="password" class="form-control ps-2" value="<?= set_value('password') ?>">
 
                     </div>
-                    <div class="form-group mb-3">
-                        <label for="passwordConf">Confirm Password</label>
+                    <div class="input-group input-group-outline mb-3">
+                        <label for="passwordConf" class="form-label">Confirm Password</label>
                         <input type="password" name="passwordConf" id="passwordConf" class="form-control ps-2" value="<?= set_value('passwordConf') ?>">
 
                     </div>
-                    <div class="col-md-2 col-sm-4 form-group mb-3">
-                        <label for="">Role</label>
-                        <select name="role" class="form-control ps-2" id="">
-                            <option value="user" class="text-center" selected>User</option>
-                            <option value="admin" class="text-center">Admin</option>
-                        </select>
+                    <div class="col-md-2 col-sm-3">
+                        <div class="input-group input-group-static mb-3">
+                            <label for="">Role:</label>
+                            <select name="role" class="form-control ps-2" id="">
+                                <option value="user" class="text-center" selected>User</option>
+                                <option value="admin" class="text-center">Admin</option>
+                            </select>
 
+                        </div>
                     </div>
+
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="" id="checkPassword">
                         <label class="form-check-label" for="checkPassword">
@@ -91,7 +100,7 @@
                     </div>
 
 
-                    <div class="d-flex align-content-end justify-content-end form-group mb-3 pe-3">
+                    <div class="d-flex align-content-end justify-content-end input-group input-group-outline mb-3 pe-3">
                         <input type="submit" value="Submit" class="btn btn-info">
                     </div>
                 </form>

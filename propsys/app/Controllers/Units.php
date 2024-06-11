@@ -37,6 +37,42 @@ class Units extends BaseController
         $description = $this->request->getPost('description');
         $status = $this->request->getPost('status');
 
+         // Initialize status fields
+    $available = 'No';
+    $reserved = 'No';
+    $occupied = 'No';
+
+    // Set the appropriate status field based on the submitted status
+    switch ($status) {
+        case 'reserved':
+            $reserved = 'Yes';
+            break;
+        case 'occupied':
+            $occupied = 'Yes';
+            break;
+        case 'available':
+            $available = 'Yes';
+            break;
+    }
+
+        $data = [
+            'property_id' => $property,
+            'unit_name' => $name,
+            'unit_number' => $unitNo,
+            'description' => $description,
+            'available' => $available,
+            'reserved' => $reserved,
+            'occupied' => $occupied
+        ];
+
+        $model = new UnitsModel();
+        $query = $model->save($data);
+
+        if (!$query) {
+            return redirect()->back()->with('fail', 'Saving Unit Failed');
+        } else {
+            return redirect()->back()->with('success', 'Saved Unit Successfully');
+        }
 
     }
 }
