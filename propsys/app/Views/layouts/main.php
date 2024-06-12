@@ -284,6 +284,7 @@
   <script src="<?= base_url('assets/js/plugins/perfect-scrollbar.min.js') ?>"></script>
   <script src="<?= base_url('assets/js/plugins/smooth-scrollbar.min.js') ?>"></script>
   <script src="<?= base_url('assets/js/plugins/chartjs.min.js') ?>"></script>
+  <script src="<?= base_url('assets/js/plugins/countup.min.js') ?>"></script>
   <script src="<?= base_url('assets/js/util.js') ?>"></script>
   <script>
     var ctx = document.getElementById("chart-bars").getContext("2d");
