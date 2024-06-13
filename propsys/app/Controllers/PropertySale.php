@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\PropertySaleModel;
 use App\Models\UserModel;
 use App\Models\LandlordsModel;
+use App\Models\UnitSaleModel;
 use CodeIgniter\HTTP\ResponseInterface;
 
 class PropertySale extends BaseController
@@ -51,5 +52,33 @@ class PropertySale extends BaseController
         } else {
             return redirect()->back()->with('success', 'Saved Property Successfully');
         }
+    }
+    
+
+    public function showSale()
+    {
+
+        $name = $this->request->getGet('property');
+        $property = new PropertySaleModel();
+        $userModel = new UserModel();
+        $landlordModel = new LandlordsModel();
+        $unitsModel = new UnitSaleModel();
+        $loggedInUserId = session()->get('loggedInUser');
+        $userInfo = $userModel->find($loggedInUserId);
+        $each = $property->where('name',$name)->first();
+        $propertyId = $each['id'];
+        $landlordId = $each['landlord_id'];
+        $landlord = $landlordModel->find($landlordId);
+        $units = $unitsModel->where('property_sale_id', $propertyId)->countAllResults();
+        $show = $property->find($propertyId);
+
+        $data = [
+            'title' => $name,
+            'property' => $show,
+            'landlord' => $landlord,
+            'units' => $units,
+            'userInfo' => $userInfo
+        ];
+        return view('properties/sale_show', $data);
     }
 }

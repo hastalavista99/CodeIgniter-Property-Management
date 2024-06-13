@@ -32,6 +32,7 @@ $routes->group('', ['filter' => 'AuthCheck'], function ($routes) {
     $routes->get('units', 'Units::index');
     $routes->post('insertUnit', 'Units::insertUnit');
     $routes->post('propertySale', 'PropertySale::propertySale');
+    $routes->get('saleShow', 'PropertySale::showSale');
     $routes->get('unitSale', 'UnitSale::index');
     $routes->post('saleUnit', 'UnitSale::saleUnit');
     $routes->get('propertySale', 'PropertySale::index');
