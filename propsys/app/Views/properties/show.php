@@ -16,7 +16,7 @@
             </div>
             <div class="col-md-2 pt-3">
                 <div>
-                    <a class="btn btn-outline-success" href="propertySale">
+                    <a class="btn btn-outline-success" href="properties">
                         <i class="material-icons opacity-10 me-2">chevron_left</i>
                         back
                     </a>

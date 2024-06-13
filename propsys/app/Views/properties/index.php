@@ -77,7 +77,7 @@
 
               <tr>
                 <td class="text-center"><?= esc($property['property_id']) ?></td>
-                <td class="text-center"><?= esc($property['property_name']) ?></td>
+                <td class="text-center"><a href="<?= site_url('propertyShow?property='.$property['property_name'])?>"><?= esc($property['property_name']) ?></a></td>
                 <td class="text-center"><?= esc($property['location']) ?></td>
                 <td class="text-center"><?= esc($property['landlord_name']) ?></td>
                 <td class="text-center"><?= esc($property['active_status']) ?></td>

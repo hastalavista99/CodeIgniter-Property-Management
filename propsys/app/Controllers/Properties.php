@@ -76,4 +76,30 @@ class Properties extends BaseController
 
 
     }
+
+    public function show()
+    {
+        $name = $this->request->getGet('property');
+        $userModel = new UserModel();
+        $landlordModel = new LandlordsModel();
+        $unitsModel = new UnitsModel();
+        $property = new PropertiesModel();
+        $each = $property->where('name',$name)->first();
+        $propertyId = $each['id'];
+        $landlordId = $each['landlord_id'];
+        $landlord = $landlordModel->find($landlordId);
+        $units = $unitsModel->where('property_id', $propertyId)->countAllResults();
+        $show = $property->find($propertyId);
+        $loggedInUserId = session()->get('loggedInUser');
+        $userInfo = $userModel->find($loggedInUserId);
+
+        $data = [
+            'title' => $name,
+            'property' => $show,
+            'landlord' => $landlord,
+            'units' => $units,
+            'userInfo' => $userInfo
+        ];
+        return view('properties/show', $data);
+    }
 }
