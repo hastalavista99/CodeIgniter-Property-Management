@@ -13,6 +13,7 @@ class Dashboard extends BaseController
         $userModel = new UserModel();
         $loggedInUserId = session()->get('loggedInUser');
         $userInfo = $userModel->find($loggedInUserId);
+        
 
         $data = [
             'title' => 'Dashboard',

@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\UserModel;
+use App\Models\TenantModel;
 use App\Libraries\Hash;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\Database\Exceptions\DatabaseException;
@@ -131,7 +132,7 @@ class Auth extends BaseController
     {
         helper('form');
 
-      
+
         $userModel = new UserModel();
         $loggedInUserId = session()->get('loggedInUser');
         $userInfo = $userModel->find($loggedInUserId);
@@ -145,11 +146,44 @@ class Auth extends BaseController
         return view('users/index', $data);
     }
 
-    public function logout(){
-        if(session()->has('loggedInUser'))
-        {
-            session()->remove('loggedInUser');
+    public function tenantLogin()
+    {
 
+        return view('auth/tenant');
+    }
+
+    public function tenantSignIn()
+    {
+        helper(['form', 'url']);
+
+        $id_number = $this->request->getPost('id_number');
+
+        $tenantModel = new TenantModel();
+
+        $tenant = $tenantModel->where('id_number', $id_number)->first();
+
+        if (!$tenant) {
+            session()->setFlashdata('fail', 'Incorrect credentials provided');
+            return redirect()->to('auth/tenant')->withInput();
+        } else {
+            // Process tenant info
+            $tenantId = $tenant['id'];
+            session()->set('loggedInUser', $tenantId);
+
+            $userInfo = [
+                'user_name' => $tenant['name'],
+                'role' => 'tenant'
+            ];
+
+            session()->set('userInfo', $userInfo);
+            return redirect()->to('dashboard');
+        }
+    }
+
+    public function logout()
+    {
+        if (session()->has('loggedInUser')) {
+            session()->remove('loggedInUser');
         }
 
         return redirect()->to('auth?access=loggedout')->with('fail', "You are logged out");

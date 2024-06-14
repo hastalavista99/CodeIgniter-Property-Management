@@ -14,6 +14,8 @@ $routes->post('auth', 'Auth::loginUser');
 $routes->get('login', 'Auth::index');
 $routes->post('login', 'Auth::loginUser');
 $routes->get('logout', 'Auth::logout');
+$routes->get('tenantLogin', 'Auth::tenantLogin');
+$routes->post('tenantSignIn', 'Auth::tenantSignIn');
 $routes->group('', ['filter' => 'AuthCheck'], function ($routes) {
     $routes->get('register', 'Auth::register');
     $routes->post('registerUser', 'Auth::registerUser');

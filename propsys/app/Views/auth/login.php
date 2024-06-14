@@ -93,7 +93,7 @@
                                         <input type="submit" value="Sign In" class="btn bg-gradient-primary w-100 my-4 mb-2">
                                     </div>
                                     <p class="mt-3 text-sm text-center">
-                                        <a href="tenant_signin" class="text-primary text-gradient font-weight-bold fs-6">Tenant?</a>
+                                        <a href="<?= site_url('tenantLogin')?>" class="text-primary text-gradient font-weight-bold fs-6">Tenant?</a>
                                     </p>
                                 </form>
                             </div>
