@@ -77,13 +77,13 @@
                                     <?php
                                     }
                                     ?>
-                                    <div class="my-3">
-                                        <!-- <label class="form-label">Email</label> -->
-                                        <input type="text" name="name" class="form-control ps-2" value="" placeholder="Username" autofocus required>
+                                    <div class="my-3 input-group input-group-outline">
+                                        <label class="form-label">Username</label>
+                                        <input type="text" name="name" class="form-control ps-2" value="" required>
                                     </div>
-                                    <div class="mb-3">
-                                        <!-- <label class="form-label">Password</label> -->
-                                        <input type="password" name="password" class="form-control ps-2" placeholder="Password" required>
+                                    <div class="mb-3 input-group input-group-outline">
+                                        <label class="form-label">Password</label>
+                                        <input type="password" name="password" class="form-control ps-2" required>
                                     </div>
                                     <!-- <div class="form-check form-switch d-flex align-items-center mb-3">
                     <input class="form-check-input" type="checkbox" id="rememberMe" name="remember" <?php if (!empty($remember)) { ?>checked <?php } elseif (isset($_COOKIE["remember"])) { ?> <?php } ?>>

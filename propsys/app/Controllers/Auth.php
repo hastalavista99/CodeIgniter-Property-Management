@@ -146,6 +146,23 @@ class Auth extends BaseController
         return view('users/index', $data);
     }
 
+    public function profile()
+    {
+        helper('form');
+
+
+        $userModel = new UserModel();
+        $loggedInUserId = session()->get('loggedInUser');
+        $userInfo = $userModel->find($loggedInUserId);
+        $data = [
+            'users' => $userModel->getUser(),
+            'title' => 'Profile',
+            'userInfo' => $userInfo
+
+        ];
+        return view('auth/profile', $data);
+    }
+
     public function tenantLogin()
     {
 

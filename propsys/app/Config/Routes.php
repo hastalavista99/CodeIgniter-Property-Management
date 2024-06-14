@@ -46,4 +46,5 @@ $routes->group('', ['filter' => 'AuthCheck'], function ($routes) {
     $routes->get('tenant_report', 'Accounts::tenants');
     $routes->get('close_period', 'Accounts::close');
     $routes->get('users', 'Auth::users');
+    $routes->get('profile', 'Auth::profile');
 });
