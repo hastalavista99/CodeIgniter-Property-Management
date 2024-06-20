@@ -30,6 +30,7 @@ $routes->group('', ['filter' => 'AuthCheck'], function ($routes) {
     $routes->get('vacate', 'AssignTenant::vacate');
     $routes->post('vacateTenant', 'AssignTenant::vacateTenant');
     $routes->get('viewTenant', 'Tenants::viewTenant');
+    $routes->post('editTenant', 'Tenants::editTenant');
     $routes->get('properties', 'Properties::index');
     $routes->get('propertyShow', 'Properties::show');
     $routes->post('insertProperty', 'Properties::insertProperty');
