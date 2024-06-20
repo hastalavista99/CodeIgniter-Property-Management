@@ -15,6 +15,14 @@
       </div>
       <div class="col-md-2 pt-3">
         <div>
+          <a class="btn btn-primary" href="#">
+            <i class="material-icons opacity-10 me-2">payments</i>
+            Pay Rent
+          </a>
+        </div>
+      </div>
+      <div class="col-md-2 pt-3">
+        <div>
           <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tenantModal">
             <i class="material-icons opacity-10 me-2">person_add</i>
             Tenant
@@ -78,7 +86,7 @@
 
               <tr>
                 <td class="text-center"><?= esc($tenant['id']) ?></td>
-                <td class="text-center"><?= esc($tenant['name']) ?></td>
+                <td class="text-center"> <a href="<?= site_url('viewTenant?tenant=' . $tenant['id']) ?>"><?= esc($tenant['name']) ?></a></td>
                 <td class="text-center"><?= esc($tenant['phone_number']) ?></td>
                 <td class="text-center"><?= esc($tenant['email']) ?></td>
                 <td class="text-center"><?= esc($tenant['id_number']) ?></td>
@@ -95,10 +103,14 @@
 
                 </td>
                 <td class="text-center">
-                  <a href=""><i class="fa fa-pen text-success me-2"></i></a>
+                  <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#editModal">
+                    <i class="fas fa-user-edit text-success text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Tenant"></i>
+                  </a>
                 </td>
                 <td>
-                  <a href=""><i class="fa fa-trash text-danger"></i></a>
+                  <a href="javascript:;">
+                    <i class="fas fa-trash text-danger text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Tenant"></i>
+                  </a>
                 </td>
 
               </tr>
@@ -169,50 +181,66 @@
 </div>
 
 
-<!-- assign modal  -->
-<div class="modal" id="assignModal">
-  <div class="modal-dialog">
+<!-- edit tenant  -->
+<div class="modal" id="editModal">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content" style="width: 150%">
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h5 class="modal-title">Assign Unit</h5>
-        <button type="button" class="btn-close me-2" style="background-color: black;" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h5 class="modal-title">New Tenant</h5>
+        <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
 
       <!-- Modal Body -->
       <div class="modal-body">
-        <form class="row g-3 my-1" action="" method="post">
-          <div class="input-group input-group-outline col-md-4">
-            <label for="property" class="form-label">Property Name</label>
-            <select id="property" name="property_Select" class="form-select ps-2">
-              <option value="" selected>-- Select Property --</option>
+        <form action="<?= site_url('createTenant') ?>" method="post">
+          <?= csrf_field() ?>
+          <div class="row g-3 my-1">
 
-            </select>
-          </div>
-          <div class="input-group input-group-outline col-md-4">
-            <label for="unit" class="form-label">Unit Name</label>
-            <select id="unit" name="unitSelect" class="form-select ps-2">
-              <option value="" selected>-- Select Unit --</option>
+            <div class="input-group input-group-outline my-3 col-md-12">
+              <label for="tenantName" class="form-label">Name:</label>
+              <input type="text" class="form-control ps-2" id="tenantName" name="name" autocomplete="off">
+            </div>
+            <div class="col-md-6">
+              <div class="input-group input-group-outline my-3">
+                <label for="tenantEmail" class="form-label">Email:</label>
+                <input type="email" class="form-control ps-2" id="tenantEmail" name="email" autocomplete="off">
+              </div>
+            </div>
 
-            </select>
+            <div class="col-md-6">
+              <div class="input-group input-group-outline my-3">
+                <label for="tenantPhone" class="form-label">Phone Number:</label>
+                <input type="text" class="form-control ps-2" id="tenantPhone" name="phone_number" autocomplete="off">
+              </div>
+            </div>
 
-          </div>
-          <div class="input-group input-group-outline col-md-4">
-            <label for="type_of" class="form-label">Rent or Lease</label>
-            <select name="" id="type_of" class="form-select ps-2">
-              <option value="" selected>-- Choose... --</option>
-              <option value="rent">Rent</option>
-              <option value="lease">Lease</option>
-              <option value="hire">Hire</option>
-            </select>
-          </div>
-          <div class="col-12">
-            <button type="submit" name="assign" id="submitAssign" class="btn btn-primary">Assign</button>
-          </div>
+            <div class="col-md-3">
+              <div class="input-group input-group-outline my-3">
+                <label for="tenantId" class="form-label">ID No.</label>
+                <input type="text" class="form-control ps-2" id="tenantId" name="id_number" autocomplete="off">
+              </div>
+            </div>
+
+
+
+
+            <div class="col-12 d-flex align-content-end justify-content-end">
+              <input type="submit" value="Create" class="btn btn-primary"></button>
+            </div>
         </form>
       </div>
     </div>
+
+
   </div>
 </div>
+
+
+
+
+
 <?= $this->endSection() ?>

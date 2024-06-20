@@ -51,4 +51,25 @@ class Tenants extends BaseController
         }
     }
 
+    public function viewTenant()
+    {
+        helper(['form', 'url']);
+
+        $tenantId = $this->request->getGet('tenant');
+        $model = new TenantModel();
+        $userModel = new UserModel();
+        $loggedInUserId = session()->get('loggedInUser');
+        $userInfo = $userModel->find($loggedInUserId);
+        $tenant = $model->find($tenantId);
+
+
+        $data = [
+            'title' => 'View Tenant',
+            'tenant' => $tenant,
+            'userInfo' => $userInfo
+        ];
+
+        return view('tenants/view', $data);
+    }
+
 }
