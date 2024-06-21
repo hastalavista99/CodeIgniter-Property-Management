@@ -78,7 +78,6 @@
               <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">unit no</th>
               <th class="text-secondary opacity-7"></th>
               <th class="text-secondary opacity-7"></th>
-              <th class="text-secondary opacity-7"></th>
             </tr>
           </thead>
           <tbody>
@@ -102,13 +101,8 @@
                   <?php } ?>
 
                 </td>
-                <td class="text-center">
-                  <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#editModal">
-                    <i class="fas fa-user-edit text-success text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Tenant"></i>
-                  </a>
-                </td>
                 <td>
-                  <a href="javascript:;">
+                  <a href="<?= site_url('deleteTenant?tenant='.$tenant['id'])?>">
                     <i class="fas fa-trash text-danger text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Tenant"></i>
                   </a>
                 </td>
@@ -181,63 +175,6 @@
 </div>
 
 
-<!-- edit tenant  -->
-<div class="modal" id="editModal">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content" style="width: 150%">
-
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h5 class="modal-title">New Tenant</h5>
-        <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-
-      <!-- Modal Body -->
-      <div class="modal-body">
-        <form action="<?= site_url('createTenant') ?>" method="post">
-          <?= csrf_field() ?>
-          <div class="row g-3 my-1">
-
-            <div class="input-group input-group-outline my-3 col-md-12">
-              <label for="tenantName" class="form-label">Name:</label>
-              <input type="text" class="form-control ps-2" id="tenantName" name="name" autocomplete="off">
-            </div>
-            <div class="col-md-6">
-              <div class="input-group input-group-outline my-3">
-                <label for="tenantEmail" class="form-label">Email:</label>
-                <input type="email" class="form-control ps-2" id="tenantEmail" name="email" autocomplete="off">
-              </div>
-            </div>
-
-            <div class="col-md-6">
-              <div class="input-group input-group-outline my-3">
-                <label for="tenantPhone" class="form-label">Phone Number:</label>
-                <input type="text" class="form-control ps-2" id="tenantPhone" name="phone_number" autocomplete="off">
-              </div>
-            </div>
-
-            <div class="col-md-3">
-              <div class="input-group input-group-outline my-3">
-                <label for="tenantId" class="form-label">ID No.</label>
-                <input type="text" class="form-control ps-2" id="tenantId" name="id_number" autocomplete="off">
-              </div>
-            </div>
-
-
-
-
-            <div class="col-12 d-flex align-content-end justify-content-end">
-              <input type="submit" value="Create" class="btn btn-primary"></button>
-            </div>
-        </form>
-      </div>
-    </div>
-
-
-  </div>
-</div>
 
 
 

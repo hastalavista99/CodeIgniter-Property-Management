@@ -102,4 +102,20 @@ class Tenants extends BaseController
         
     }
 
+
+    public function deleteTenant()
+    {
+        helper(['form', 'url']);
+
+        $id = $this->request->getGet('tenant');
+        $tenantModel = new TenantModel();
+        $query = $tenantModel->delete($id);
+
+        if(!$query) {
+            return redirect()->back()->with('fail', 'Saving Tenant Failed');
+        } else {
+            return redirect()->back()->with('success', 'Saved Tenant Successfully');
+        }
+
+    }
 }

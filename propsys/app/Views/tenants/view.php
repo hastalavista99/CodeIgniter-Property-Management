@@ -27,6 +27,14 @@
                     </p>
                 </div>
             </div>
+            <div class="col-md-2 pt-3">
+                <div>
+                    <a class="btn btn-primary" href="#">
+                        <i class="material-icons opacity-10 me-2">payments</i>
+                        Pay Rent
+                    </a>
+                </div>
+            </div>
             <a href="tenants" class="text-underline text-primary text-sm my-2"><i class="fas fa-chevron-left"></i> Back to Tenants</a>
 
         </div>
@@ -76,13 +84,16 @@
                                     <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#editTenantModal">
                                         <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Tenant"></i>
                                     </a>
-                                    <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#editTenantModal">
+                                    <?php if ($userInfo['role'] == 'admin') { ?>
+
+
+                                        <!-- <a href="<?= site_url('deleteTenant?tenant=' . $tenant['id']) ?>" >
                                         <i class="fas fa-trash text-danger text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Tenant"></i>
-                                    </a>
+                                    </a><?php } ?> -->
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body p-3">
+                        <div class="card-body ">
 
                             <hr class="horizontal gray-light my-4">
                             <ul class="list-group">
@@ -181,7 +192,7 @@
 
 
                         <div class="col-12 d-flex align-content-end justify-content-end">
-                            <input type="submit" value="Create" class="btn btn-primary"></button>
+                            <input type="submit" value="Update" class="btn btn-primary"></button>
                         </div>
                 </form>
             </div>
