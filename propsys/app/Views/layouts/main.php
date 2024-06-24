@@ -66,7 +66,7 @@
             </div>
           </div>
           <ul class="navbar-nav justify-content-end">
-            <li class="nav-item d-xl-none ps-3 me-2 d-flex align-items-center">
+            <li class="nav-item d-xl-none ps-3 me-3 d-flex align-items-center">
               <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
                 <div class="sidenav-toggler-inner">
                   <i class="sidenav-toggler-line"></i>
@@ -77,7 +77,7 @@
             </li>
             <li class="nav-item dropdown pe-2 d-flex align-items-center">
               <a href="javascript:;" class="nav-link text-body p-0 font-weight-bold" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="fa fa-user cursor-pointer"></i>
+                <i class="fa fa-user cursor-pointer me-1"></i>
                 <span class="d-sm-inline d-none">
                   <?= esc($userInfo['user_name'])?></span>
                 <i class="fa fa-caret-down cursor-pointer"></i>

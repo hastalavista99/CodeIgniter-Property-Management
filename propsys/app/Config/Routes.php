@@ -50,4 +50,5 @@ $routes->group('', ['filter' => 'AuthCheck'], function ($routes) {
     $routes->get('close_period', 'Accounts::close');
     $routes->get('users', 'Auth::users');
     $routes->get('profile', 'Auth::profile');
+    $routes->get('noData', 'Dashboard::noData');
 });

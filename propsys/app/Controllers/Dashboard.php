@@ -21,4 +21,18 @@ class Dashboard extends BaseController
         ];
         return view('dashboard/index', $data);
     }
+
+    public function noData()
+    {
+        $userModel = new UserModel();
+        $loggedInUserId = session()->get('loggedInUser');
+        $userInfo = $userModel->find($loggedInUserId);
+        
+
+        $data = [
+            'title' => 'Dashboard',
+            'userInfo' => $userInfo
+        ];
+        return view('no_data', $data);
+    }
 }
