@@ -57,40 +57,46 @@
         }
         ?>
       </div>
-      <div class="table-responsive p-0">
-        <table class="table align-items-center mb-0" id="table">
-          <thead>
-            <tr>
-              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
-              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Property</th>
-              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Unit</th>
-              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Commission</th>
-              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">deposit</th>
-              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">price</th>
-              <th class="text-secondary opacity-7"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php foreach ($units as $unit) : ?>
-
+      <?php if (!empty($units)) {  ?>
+        <div class="table-responsive p-0">
+          <table class="table align-items-center mb-0" id="table">
+            <thead>
               <tr>
-                <td class="text-center"><?= esc($unit['unit_id']) ?></td>
-                <td class="text-center"><?= esc($unit['property_name']) ?></td>
-                <td class="text-center"><?= esc($unit['unit_name']) ?></td>
-                <td class="text-center"><span class="text-xxs">KES </span><?= esc($unit['commission']) ?></td>
-                <td class="text-center"><span class="text-xxs">KES </span><?= esc($unit['deposit']) ?></td>
-                <td class="text-center"><span class="text-xxs">KES </span><?= esc($unit['price']) ?></td>
-                <td class="text-center"><a href=""><i class="fa fa-pen text-success me-2"></i></a>
-                  <a href=""><i class="fa fa-trash text-danger"></i></a>
-                </td>
-
-
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Property</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Unit</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Commission</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">deposit</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">price</th>
+                <th class="text-secondary opacity-7"></th>
               </tr>
-            <?php endforeach ?>
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              <?php foreach ($units as $unit) : ?>
+
+                <tr>
+                  <td class="text-center"><?= esc($unit['unit_id']) ?></td>
+                  <td class="text-center"><?= esc($unit['property_name']) ?></td>
+                  <td class="text-center"><?= esc($unit['unit_name']) ?></td>
+                  <td class="text-center"><span class="text-xxs">KES </span><?= esc($unit['commission']) ?></td>
+                  <td class="text-center"><span class="text-xxs">KES </span><?= esc($unit['deposit']) ?></td>
+                  <td class="text-center"><span class="text-xxs">KES </span><?= esc($unit['price']) ?></td>
+                  <td class="text-center"><a href=""><i class="fa fa-pen text-success me-2"></i></a>
+                    <a href=""><i class="fa fa-trash text-danger"></i></a>
+                  </td>
+
+
+                </tr>
+              <?php endforeach ?>
+            </tbody>
+          </table>
+        </div>
     </div>
+  <?php } else {
+
+        header('Location: ' . base_url('noData'));
+        exit();
+      } ?>
   </div>
 </div>
 

@@ -8,27 +8,28 @@
 <div class="col-12">
   <div class="card my-4">
     <div class="d-flex justify-content-between">
-      <div class="row card-header col-md-7 p-0 mx-3 z-index-2 mt-3" style="height: 25px;">
-        <div class="pt-1 pb-1">
-          <h4 class="row text-capitalize ps-3"><?= esc($title) ?></h4>
+      <?php if (!empty($tenants)) {  ?>
+        <div class="row card-header col-md-7 p-0 mx-3 z-index-2 mt-3" style="height: 25px;">
+          <div class="pt-1 pb-1">
+            <h4 class="row text-capitalize ps-3"><?= esc($title) ?></h4>
+          </div>
         </div>
-      </div>
-      <div class="col-md-2 pt-3">
-        <div>
-          <a class="btn btn-primary" href="#">
-            <i class="material-icons opacity-10 me-2">payments</i>
-            Pay Rent
-          </a>
+        <div class="col-md-2 pt-3">
+          <div>
+            <a class="btn btn-primary" href="#">
+              <i class="material-icons opacity-10 me-2">payments</i>
+              Pay Rent
+            </a>
+          </div>
         </div>
-      </div>
-      <div class="col-md-2 pt-3">
-        <div>
-          <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tenantModal">
-            <i class="material-icons opacity-10 me-2">person_add</i>
-            Tenant
-          </button>
+        <div class="col-md-2 pt-3">
+          <div>
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tenantModal">
+              <i class="material-icons opacity-10 me-2">person_add</i>
+              Tenant
+            </button>
+          </div>
         </div>
-      </div>
     </div>
     <div class="card-body px-0 pb-2">
       <div class="container">
@@ -102,7 +103,7 @@
 
                 </td>
                 <td>
-                  <a href="<?= site_url('deleteTenant?tenant='.$tenant['id'])?>">
+                  <a href="<?= site_url('deleteTenant?tenant=' . $tenant['id']) ?>">
                     <i class="fas fa-trash text-danger text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Tenant"></i>
                   </a>
                 </td>
@@ -113,6 +114,11 @@
         </table>
       </div>
     </div>
+  <?php } else {
+
+        header('Location: ' . base_url('noData'));
+        exit();
+      } ?>
   </div>
 </div>
 

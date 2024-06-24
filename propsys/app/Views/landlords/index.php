@@ -8,53 +8,54 @@
 <div class="col-12">
   <div class="card my-4">
     <div class="d-flex justify-content-between">
-      <div class="row card-header col-md-7 p-0 mx-3 z-index-2 mt-3" style="height: 25px;">
-        <div class="pt-1 pb-1">
-          <h4 class="row text-capitalize ps-3">Landlords</h4>
+      <?php if (!empty($landlords)) {  ?>
+        <div class="row card-header col-md-7 p-0 mx-3 z-index-2 mt-3" style="height: 25px;">
+          <div class="pt-1 pb-1">
+            <h4 class="row text-capitalize ps-3">Landlords</h4>
+          </div>
         </div>
-      </div>
-      <div class="col-md-2 pt-3">
-        <div>
-          <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#landlordModal">
-            <i class="material-icons opacity-10 me-2">person_add</i>
-            Landlord
-          </button>
+        <div class="col-md-2 pt-3">
+          <div>
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#landlordModal">
+              <i class="material-icons opacity-10 me-2">person_add</i>
+              Landlord
+            </button>
+          </div>
         </div>
-      </div>
     </div>
     <div class="card-body px-0 pb-2">
       <div class="container">
-      <?php
-                if (!empty(session()->getFlashdata('success'))) {
-                ?>
-                    <div class="alert alert-success text-white alert-dismissible fade show">
-                    <span class="alert-icon align-middle">
-                            <span class="material-icons text-md">
-                                thumb_up
-                            </span>
-                        </span>
-                        <?= session()->getFlashdata('success') ?>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                <?php
-                } else if (!empty(session()->getFlashdata('fail'))) {
-                ?>
-                    <div class="alert alert-danger text-white alert-dismissible fade show">
-                        <span class="alert-icon align-middle">
-                            <span class="material-icons text-md">
-                                warning
-                            </span>
-                        </span>
-                        <?= session()->getFlashdata('fail') ?>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                <?php
-                }
-                ?>
+        <?php
+        if (!empty(session()->getFlashdata('success'))) {
+        ?>
+          <div class="alert alert-success text-white alert-dismissible fade show">
+            <span class="alert-icon align-middle">
+              <span class="material-icons text-md">
+                thumb_up
+              </span>
+            </span>
+            <?= session()->getFlashdata('success') ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        <?php
+        } else if (!empty(session()->getFlashdata('fail'))) {
+        ?>
+          <div class="alert alert-danger text-white alert-dismissible fade show">
+            <span class="alert-icon align-middle">
+              <span class="material-icons text-md">
+                warning
+              </span>
+            </span>
+            <?= session()->getFlashdata('fail') ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        <?php
+        }
+        ?>
       </div>
       <div class="table-responsive p-0">
         <table class="table align-items-center mb-0" id="table">
@@ -85,9 +86,14 @@
             <?php endforeach ?>
           </tbody>
         </table>
-        
+
       </div>
     </div>
+  <?php } else {
+
+        header('Location: ' . base_url('noData'));
+        exit();
+      } ?>
   </div>
 </div>
 

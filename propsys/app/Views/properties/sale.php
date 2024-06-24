@@ -11,19 +11,20 @@
   <div class="card my-4">
 
     <div class="d-flex justify-content-between">
-      <div class="row card-header col-md-7 p-0 mx-3 z-index-2 mt-3" style="height: 25px;">
-        <div class="pt-1 pb-1">
-          <h4 class="row text-capitalize ps-3"><?= esc($title) ?></h4>
+      <?php if (!empty($properties)) {  ?>
+        <div class="row card-header col-md-7 p-0 mx-3 z-index-2 mt-3" style="height: 25px;">
+          <div class="pt-1 pb-1">
+            <h4 class="row text-capitalize ps-3"><?= esc($title) ?></h4>
+          </div>
         </div>
-      </div>
-      <div class="col-md-2 pt-3">
-        <div>
-          <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#saleModal">
-            <i class="material-icons opacity-10 me-2">domain_add</i>
-            Add
-          </button>
+        <div class="col-md-2 pt-3">
+          <div>
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#saleModal">
+              <i class="material-icons opacity-10 me-2">domain_add</i>
+              Add
+            </button>
+          </div>
         </div>
-      </div>
     </div>
     <div class="card-body px-0 pb-2">
       <div class="container">
@@ -77,7 +78,7 @@
 
               <tr>
                 <td class="text-center"><?= esc($property['property_id']) ?></td>
-                <td class="text-center"> <a href="<?=site_url('saleShow?property='.$property['property_name'])?>"> <?= esc($property['property_name']) ?></a></td>
+                <td class="text-center"> <a href="<?= site_url('saleShow?property=' . $property['property_name']) ?>"> <?= esc($property['property_name']) ?></a></td>
                 <td class="text-center"><?= esc($property['location']) ?></td>
                 <td class="text-center"><?= esc($property['landlord_name']) ?></td>
                 <td class="text-center"><?= esc($property['number_of_units']) ?></td>
@@ -93,6 +94,11 @@
         </table>
       </div>
     </div>
+  <?php } else {
+
+        header('Location: ' . base_url('noData'));
+        exit();
+      } ?>
   </div>
 </div>
 
