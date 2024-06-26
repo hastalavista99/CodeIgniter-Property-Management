@@ -3,9 +3,11 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\LandlordsModel;
 use App\Models\UnitsModel;
 use App\Models\UserModel;
 use App\Models\PropertiesModel;
+use App\Models\TenantModel;
 use CodeIgniter\HTTP\ResponseInterface;
 
 class Units extends BaseController
@@ -74,5 +76,37 @@ class Units extends BaseController
             return redirect()->back()->with('success', 'Saved Unit Successfully');
         }
 
+    }
+
+    public function view()
+    {
+        $id = $this->request->getGet('unit');
+        $unitModel = new UnitsModel();
+        $propertyModel = new PropertiesModel();
+        $landlordModel = new LandlordsModel();
+        $tenantModel = new TenantModel();
+        $userModel = new UserModel();
+        $loggedInUserId = session()->get('loggedInUser');
+        $userInfo = $userModel->find($loggedInUserId);
+
+        $tenant = $tenantModel->where('unit_id', $id)->findAll();
+
+        $unit = $unitModel->find($id);
+
+        $propId = $unit['property_id'];
+
+        $property = $propertyModel->find($propId);
+        $landlordId = $property['landlord_id'];
+        $landlord = $landlordModel->find($landlordId);
+
+        $data = [
+            'unit' => $unit,
+            'title' => $unit['unit_name'],
+            'property' => $property,
+            'landlord' => $landlord,
+            'userInfo' => $userInfo
+        ];
+
+        return view('units/view', $data);
     }
 }

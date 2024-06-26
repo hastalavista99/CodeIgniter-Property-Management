@@ -12,6 +12,7 @@ $routes->get('/', 'Home::index');
 $routes->get('auth', 'Auth::index');
 $routes->post('auth', 'Auth::loginUser');
 $routes->get('login', 'Auth::index');
+$routes->get('auth/login', 'Auth::index');
 $routes->post('login', 'Auth::loginUser');
 $routes->get('logout', 'Auth::logout');
 $routes->get('tenantLogin', 'Auth::tenantLogin');
@@ -37,6 +38,7 @@ $routes->group('', ['filter' => 'AuthCheck'], function ($routes) {
     $routes->post('insertProperty', 'Properties::insertProperty');
     $routes->get('units', 'Units::index');
     $routes->post('insertUnit', 'Units::insertUnit');
+    $routes->get('viewUnit', 'Units::view');
     $routes->post('propertySale', 'PropertySale::propertySale');
     $routes->get('saleShow', 'PropertySale::showSale');
     $routes->get('unitSale', 'UnitSale::index');

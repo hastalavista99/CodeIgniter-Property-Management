@@ -82,7 +82,7 @@
                 <tr>
                   <td class="text-center"><?= esc($unit['unit_id']) ?></td>
                   <td class="text-center"><?= esc($unit['property_name']) ?></td>
-                  <td class="text-center"><?= esc($unit['unit_name']) ?></td>
+                  <td class="text-center"><u><a href="<?= site_url('viewUnit?unit='.$unit['unit_id'])?>"><?= esc($unit['unit_name']) ?></a></u></td>
                   <td class="text-center"><?= esc($unit['unit_number']) ?></td>
                   <td class="text-center"><span class="text-xxs">KES </span><?= esc($unit['commission']) ?></td>
                   <td class="text-center"><span class="text-xxs">KES </span><?= esc($unit['rent']) ?></td>
