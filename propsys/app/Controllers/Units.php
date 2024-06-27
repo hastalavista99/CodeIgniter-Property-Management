@@ -89,7 +89,8 @@ class Units extends BaseController
         $loggedInUserId = session()->get('loggedInUser');
         $userInfo = $userModel->find($loggedInUserId);
 
-        $tenant = $tenantModel->where('unit_id', $id)->findAll();
+        $tenant = $tenantModel->where('unit_id', $id)->first();
+        $ten = $tenant ? $tenant['name'] : 'N/A';
 
         $unit = $unitModel->find($id);
 
@@ -102,6 +103,7 @@ class Units extends BaseController
         $data = [
             'unit' => $unit,
             'title' => $unit['unit_name'],
+            'tenant' => $ten,
             'property' => $property,
             'landlord' => $landlord,
             'userInfo' => $userInfo

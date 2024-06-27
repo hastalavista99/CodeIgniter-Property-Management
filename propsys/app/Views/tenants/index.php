@@ -16,7 +16,7 @@
         </div>
         <div class="col-md-2 pt-3">
           <div>
-            <a class="btn btn-primary" href="#">
+            <a class="btn btn-primary" href="<?= site_url('rentPay')?>">
               <i class="material-icons opacity-10 me-2">payments</i>
               Pay Rent
             </a>

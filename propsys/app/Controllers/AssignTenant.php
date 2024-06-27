@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\BillingModel;
 use App\Models\UserModel;
 use App\Models\PropertiesModel;
 use App\Models\TenantModel;
@@ -34,9 +35,27 @@ class AssignTenant extends BaseController
     {
         $propertyId = $this->request->getPost('property_id');
         $unitModel = new UnitsModel();
-        $units = $unitModel->where('property_id', $propertyId)->where('available', 'yes')->findAll();
+        $units = $unitModel->where('property_id', $propertyId)->where('occupied', 'yes')->findAll();
 
         return $this->response->setJSON($units);
+    }
+
+    public function getTenants()
+    {
+        $unitId = $this->request->getPost('unit_id');
+        $tenantModel = new TenantModel();
+        $tenants = $tenantModel->where('unit_id', $unitId)->findAll();
+
+        return $this->response->setJSON($tenants);
+    }
+
+    public function getRent()
+    {
+        $unitId = $this->request->getPost('unit_id');
+        $rentModel = new BillingModel();
+        $rent = $rentModel->where('unit_id', $unitId)->findAll();
+
+        return $this->response->setJSON($rent);
     }
 
     public function assign()
