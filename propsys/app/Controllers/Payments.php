@@ -38,12 +38,7 @@ class Payments extends BaseController
         $month = $this->request->getPost('rentMonth');
         $rent = $this->request->getPost('rentSelect');
 
-        // Debugging: Log or display the received data
-        // You can use log_message('debug', 'message') to log or use var_dump() to display
-        log_message('debug', 'Tenant: ' . $tenant);
-        log_message('debug', 'Month: ' . $month);
-        log_message('debug', 'Rent: ' . $rent);
-
+       
         // Check if any of the required fields are empty
         if (empty($tenant) || empty($month) || empty($rent)) {
             return redirect()->back()->with('fail', 'All fields are required');

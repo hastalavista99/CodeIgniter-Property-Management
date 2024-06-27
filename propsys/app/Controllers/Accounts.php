@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\AccountsModel;
 use App\Models\PaymentsModel;
 use App\Models\RentModel;
+use App\Models\TenantModel;
 use App\Models\UtilitiesModel;
 use App\Models\UserModel;
 use CodeIgniter\HTTP\ResponseInterface;
@@ -45,8 +46,14 @@ class Accounts extends BaseController
     public function approvalList()
     {
 
+        $userModel = new UserModel();
+        $loggedInUserId = session()->get('loggedInUser');
+        $userInfo = $userModel->find($loggedInUserId);
+
+
         $data = [
-            'title' => 'Approval'
+            'title' => 'Approval',
+            'userInfo' => $userInfo
         ];
         return view('accounts/approval', $data);
     }
@@ -80,6 +87,25 @@ class Accounts extends BaseController
             'userInfo' => $userInfo
         ];
         return view('accounts/tenants', $data);
+    }
+
+    public function rentApprove()
+    {
+        $rentModel = new RentModel();
+        $tenantModel = new TenantModel();
+        $rent = $rentModel->select('rent_receivable.*, tenants_two.name as tenant_name')->join('tenants_two', 'tenants_two.id = rent_receivable.tenant_id')->findAll();
+        $userModel = new UserModel();
+        $loggedInUserId = session()->get('loggedInUser');
+        $userInfo = $userModel->find($loggedInUserId);
+
+        $data = [
+            'title' => 'Rent Approve',
+            'userInfo' => $userInfo,
+            'rents' => $rent,
+           
+
+        ];
+        return view('accounts/rent_view', $data);
     }
 
     public function close()

@@ -26,7 +26,7 @@
         </div>
         <div class="card-body px-0 pb-2">
             <ul class="list-group list-group-xxl my-2" style="list-style: none;">
-                <li><a class="list-group-item list-group-item-action text-center text-capitalize fs-4" href="rent_approval">
+                <li><a class="list-group-item list-group-item-action text-center text-capitalize fs-4" href="<?= site_url('rent_approval')?>">
                         Rent
                     </a></li>
                 <li><a class="list-group-item list-group-item-action text-center text-capitalize fs-4" href="utilities_approval">
