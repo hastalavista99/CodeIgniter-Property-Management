@@ -113,7 +113,7 @@
                 </div>
                 <div class="text-end pt-1">
                     <p class="text-sm mb-0 text-capitalize">Landlord</p>
-                    <h4 class="mb-0 text-capitalize"><?= esc($landlord['name'])?></h4>
+                    <h4 class="mb-0 text-capitalize"><a href="<?= site_url('viewLandlord?landlord='.$landlord['id'])?>"><?= esc($landlord['name'])?></a></h4>
                 </div>
             </div>
             <hr class="dark horizontal my-0" />

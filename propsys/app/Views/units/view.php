@@ -120,7 +120,7 @@
                 </div>
                 <div class="text-end pt-1">
                     <p class="text-sm mb-0 text-capitalize">Landlord</p>
-                    <h4 class="mb-0 text-capitalize"><?= esc($landlord['name'])?></h4>
+                    <h4 class="mb-0 text-capitalize"><a href="<?= site_url('viewLandlord?landlord='.$landlord['id'])?>"><?= esc($landlord['name'])?></a></h4>
                 </div>
             </div>
             <hr class="dark horizontal my-0" />
@@ -139,8 +139,8 @@
                     <i class="material-icons opacity-10">home</i>
                 </div>
                 <div class="text-end pt-1">
-                    <p class="text-sm mb-0 text-capitalize">Unit No.</p>
-                    <h4 class="mb-0"><?= esc($unit['unit_number'])?></h4>
+                    <p class="text-sm mb-0 text-capitalize">Property</p>
+                    <h4 class="mb-0"><a href="<?= site_url('propertyShow?property='.$property['name'])?>"><?= esc($property['name'])?></a></h4>
                 </div>
             </div>
             <hr class="dark horizontal my-0" />
