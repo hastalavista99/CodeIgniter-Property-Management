@@ -74,7 +74,7 @@
 
               <tr>
                 <td class="text-center"><?= esc($landlord['id']) ?></td>
-                <td class="text-center"><?= esc($landlord['name']) ?></td>
+                <td class="text-center text-capitalize text-decoration-underline"><a href="<?= site_url('viewLandlord?landlord='.$landlord['id'])?>"><?= esc($landlord['name']) ?></a></td>
                 <td class="text-center"><?= esc($landlord['phone_number']) ?></td>
                 <td class="text-center"><?= esc($landlord['email']) ?></td>
                 <td class="text-center"><?= esc($landlord['number_of_properties']) ?></td>

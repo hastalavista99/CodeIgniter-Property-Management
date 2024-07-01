@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\LandlordsModel;
+use App\Models\PropertiesModel;
 use App\Models\UserModel;
 use CodeIgniter\HTTP\ResponseInterface;
 
@@ -49,6 +50,29 @@ class Landlords extends BaseController
             return redirect()->back()->with('success', 'Saved Landlord');
         }
 
+    }
+
+
+    public function show()
+    {
+        $model = new LandlordsModel();
+        $userModel = new UserModel();
+        $properties = new PropertiesModel();
+
+        $id = $this->request->getGet('landlord');
+        $loggedInUserId = session()->get('loggedInUser');
+        $userInfo = $userModel->find($loggedInUserId);
+        $landlord = $model->find($id);
+        $properties = $properties->where('landlord_id', $id)->findAll();
+
+        $data = [
+            'landlord' => $landlord,
+            'title' => 'View Landlord',
+            'userInfo' => $userInfo,
+            'properties' => $properties
+
+        ];
+        return view('landlords/view', $data);
     }
 
 }

@@ -23,6 +23,7 @@ $routes->group('', ['filter' => 'AuthCheck'], function ($routes) {
     $routes->get('dashboard', 'Dashboard::index');
     $routes->get('landlords', 'Landlords::index');
     $routes->post('insertLandlord', 'Landlords::insertLandlord');
+    $routes->get('viewLandlord', 'Landlords::show');
     $routes->get('tenants', 'Tenants::index');
     $routes->post('createTenant', 'Tenants::createTenant');
     $routes->get('assign', 'AssignTenant::index');
