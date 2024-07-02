@@ -27,7 +27,7 @@ class AuthCheckFilter implements FilterInterface
     {
         if(!session()->has('loggedInUser'))
         {
-            return redirect()->to('auth')->with('fail', 'You must be logged in to access this page');
+            return redirect()->to('auth')->with('fail', 'Sign in to Continue');
         }
 
     }

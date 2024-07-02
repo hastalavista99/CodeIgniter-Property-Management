@@ -12,8 +12,8 @@
       <div class="card card-body mx-3 mx-md-4 mt-n6">
         <div class="row gx-4 mb-2">
           <div class="col-auto">
-            <div class="avatar avatar-xl position-relative">
-              <img src="../assets/img/bruce-mars.jpg" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+            <div class=" position-relative">
+              <i class="material-icons opacity-10 text-primary fs-1">account_circle</i>
             </div>
           </div>
           <div class="col-auto my-auto">

@@ -63,7 +63,7 @@
                                     <?php
                                     } else if (!empty(session()->getFlashdata('fail'))) {
                                     ?>
-                                        <div class="alert alert-danger text-white alert-dismissible fade show">
+                                        <div class="alert alert-warning text-white alert-dismissible fade show">
                                             <span class="alert-icon align-middle">
                                                 <span class="material-icons text-md">
                                                     warning
