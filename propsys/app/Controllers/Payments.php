@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\BillingModel;
+use App\Models\MpesaModel;
 use App\Models\PropertiesModel;
 use App\Models\RentModel;
 use App\Models\TenantModel;
@@ -38,7 +39,7 @@ class Payments extends BaseController
         $month = $this->request->getPost('rentMonth');
         $rent = $this->request->getPost('rentSelect');
 
-       
+
         // Check if any of the required fields are empty
         if (empty($tenant) || empty($month) || empty($rent)) {
             return redirect()->back()->with('fail', 'All fields are required');
@@ -62,5 +63,27 @@ class Payments extends BaseController
         } else {
             return redirect()->back()->with('success', 'Rent Paid Successfully');
         }
+    }
+
+    public function paybill()
+    {
+        helper('number');
+        $model = model(MpesaModel::class);
+        $userModel = new UserModel();
+        $loggedInUserId = session()->get('loggedInUser');
+        $userInfo = $userModel->find($loggedInUserId);
+
+        $totalAmount = $model->selectSum('TransAmount')->first()['TransAmount'];
+
+        $total = number_to_currency($totalAmount, 'KES', 'en_US', 2);
+
+        $data = [
+            'payments'  => $model->getPayments(),
+            'title' => 'Payments',
+            'userInfo' => $userInfo,
+            'total' => $total
+        ];
+
+        return view('payments/paybill', $data);
     }
 }

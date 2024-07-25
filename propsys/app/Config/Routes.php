@@ -49,6 +49,7 @@ $routes->group('', ['filter' => 'AuthCheck'], function ($routes) {
     $routes->get('propertySale', 'PropertySale::index');
     $routes->get('accounts', 'Accounts::index');
     $routes->get('charts', 'Accounts::charts');
+    $routes->get('accounts/paypesa', 'Payments::paybill');
     $routes->get('approval', 'Accounts::approvalList');
     $routes->get('rent_approval', 'Accounts::rentApprove');
     $routes->get('payment_report', 'Accounts::payments');

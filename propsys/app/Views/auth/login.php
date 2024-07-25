@@ -43,7 +43,7 @@
 
                             <div class="card-body">
 
-                                <form role="form" id="signupForm" class="text-start" method="post">
+                                <form role="form" action="<?= site_url('auth')?>" id="signupForm" class="text-start" method="post">
                                     <?= csrf_field() ?>
 
                                     <?php

@@ -539,6 +539,18 @@
       pagingType: 'simple',
       pageLength: 60
     });
+    new DataTable('#paymentstable', {
+      layout: {
+        topStart: {
+          buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5', 'print', 'colvis']
+        }
+      },
+      order: [
+        [0, 'desc']
+      ],
+      pagingType: 'simple',
+      pageLength: 60
+    });
   </script>
   <script>
 
