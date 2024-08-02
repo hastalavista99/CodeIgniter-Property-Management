@@ -114,7 +114,7 @@ class Auth extends BaseController
                 $checkPassword = Hash::check($password, $user['user_password']);
                 if (!$checkPassword) {
                     session()->setFlashdata('fail', 'Incorrect password provided');
-                    return redirect()->to('auth/login')->withInput();
+                    return redirect()->to('auth')->withInput();
                 } else {
                     // Process user info
                     $userId = $user['id'];
@@ -123,7 +123,7 @@ class Auth extends BaseController
                 }
             } else {
                 session()->setFlashdata('fail', 'User not found');
-                return redirect()->to('auth/login')->withInput();
+                return redirect()->to('auth')->withInput();
             }
         }
     }
