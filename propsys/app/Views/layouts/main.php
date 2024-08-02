@@ -77,10 +77,11 @@
             </li>
             <li class="nav-item dropdown pe-2 d-flex align-items-center">
               <a href="javascript:;" class="nav-link text-body p-0 font-weight-bold" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="fa fa-user cursor-pointer me-1"></i>
+              <i class="material-icons opacity-10 fs-3">account_circle</i>
                 <span class="d-sm-inline d-none">
                   <?= esc($userInfo['user_name'])?></span>
-                <i class="fa fa-caret-down cursor-pointer"></i>
+                <!-- <i class="fa fa-caret-down cursor-pointer"></i> -->
+                <i class="material-icons opacity-10 me-2">keyboard_arrow_down</i>
               </a>
               <ul class="dropdown-menu dropdown-menu-end px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
                 <li class="mb-2">
@@ -109,7 +110,7 @@
                   </a>
                 </li>
                 <li class="mb-2">
-                  <a class="dropdown-item border-radius-md" href="logout">
+                  <a class="dropdown-item border-radius-md" href="<?= site_url('logout')?>">
                     <div class="d-flex py-1">
                     <i class="material-icons opacity-10 me-2">logout</i>
                       <div class="d-flex flex-column justify-content-center">

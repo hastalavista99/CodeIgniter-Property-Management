@@ -154,8 +154,8 @@
 
             <div class="col-md-6">
               <div class="input-group input-group-outline my-3">
-                <label for="tenantPhone" class="form-label">Phone Number:</label>
-                <input type="text" class="form-control ps-2" id="tenantPhone" name="phone_number" autocomplete="off">
+                <label for="tenantPhone" class="form-label">Phone Number (07********):</label>
+                <input type="tel" pattern="[0-9]{10}" class="form-control ps-2" id="tenantPhone" name="phone_number" autocomplete="off">
               </div>
             </div>
 

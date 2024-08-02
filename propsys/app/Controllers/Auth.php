@@ -163,6 +163,72 @@ class Auth extends BaseController
         return view('auth/profile', $data);
     }
 
+    public function edit()
+    {
+        helper(['form', 'url']);
+
+        $userId = $this->request->getGet('id');
+        $userModel = new UserModel();
+        $loggedInUserId = session()->get('loggedInUser');
+        $userInfo = $userModel->find($loggedInUserId);
+
+        $userData = $userModel->find($userId);
+        $data = [
+            'user' => $userData,
+            'title' => 'Edit Profile',
+            'userInfo' => $userInfo
+        ];
+        return view('auth/edit_user', $data);
+    }
+
+    public function updateUser()
+    {
+        helper(['form', 'url']);
+
+        $validated = [
+            'name' => 'required',
+            'email' => 'required|valid_email',
+            'password' => 'required|min_length[5]|max_length[20]',
+            'passwordConf' => 'required|min_length[5]|max_length[20]|matches[password]'
+        ];
+        $data = $this->request->getPost(array_keys($validated));
+        // Validate data
+        if (!$this->validate($validated)) {
+            return redirect()->back()->withInput()->with('fail', 'Validation failed. Please check your input.');
+        }
+
+        $userModel = new UserModel();
+
+        // save the user
+        $userId = $this->request->getGet('id');
+        $name = esc($this->request->getPost('name'));
+        $email = esc($this->request->getPost('email'));
+        $password = esc($this->request->getPost('password'));
+        $passwordConf = esc($this->request->getPost('passwordConf'));
+        $role = esc($this->request->getPost('role'));
+
+        new \App\Libraries\Hash();
+        $data = [
+            'role' => $role,
+            'user_name' => $name,
+            'user_email' => $email,
+            'user_password' => Hash::encrypt($password),
+
+        ];
+
+        $existingUser = $userModel->where('user_name', $name)->first();
+        
+        if ($existingUser && $existingUser['id'] != $userId) {
+        return redirect()->back()->with('fail', 'Username already taken. Please choose a different username.');
+    }
+
+        if ($userModel->update($userId, $data)) {
+            return redirect()->to('users')->with('success', 'User updated successfully.');
+        } else {
+            return redirect()->back()->with('fail', 'Failed to update user. Please try again.');
+        }
+    }
+
     public function tenantLogin()
     {
 

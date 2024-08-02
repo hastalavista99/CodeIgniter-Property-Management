@@ -25,6 +25,39 @@
         </div>
       </div>
       <div class="card-body px-0 pb-2">
+        <div class="container">
+          <?php
+          if (!empty(session()->getFlashdata('success'))) {
+          ?>
+            <div class="alert alert-success text-white alert-dismissible fade show">
+              <span class="alert-icon align-middle">
+                <span class="material-icons text-md">
+                  thumb_up
+                </span>
+              </span>
+              <?= session()->getFlashdata('success') ?>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          <?php
+          } else if (!empty(session()->getFlashdata('fail'))) {
+          ?>
+            <div class="alert alert-danger text-white alert-dismissible fade show">
+              <span class="alert-icon align-middle">
+                <span class="material-icons text-md">
+                  warning
+                </span>
+              </span>
+              <?= session()->getFlashdata('fail') ?>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          <?php
+          }
+          ?>
+        </div>
         <div class="table-responsive p-0">
           <table class="table align-items-center mb-0" id="table">
             <thead>
@@ -45,7 +78,7 @@
                   <td class="text-center"><?= esc($user['user_name']) ?></td>
                   <td class="text-center"><?= esc($user['user_email']) ?></td>
                   <td class="text-center"><?= esc($user['role']) ?></td>
-                  <td class="text-center"><a href=""><i class="fa fa-pen text-success me-2"></i></a>
+                  <td class="text-center text-xxs text-uppercase font-weight-bolder"><a href="<?= site_url('users/edit?id=' . $user['id']) ?>" class="text-success">edit</a>
                     <a href=""><i class="fa fa-trash text-danger"></i></a>
                   </td>
 

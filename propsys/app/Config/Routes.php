@@ -60,4 +60,6 @@ $routes->group('', ['filter' => 'AuthCheck'], function ($routes) {
     $routes->get('rentPay', 'Payments::index');
     $routes->post('rentReceive', 'Payments::rentReceive');
     $routes->get('noData', 'Dashboard::noData');
+    $routes->get('users/edit', 'Auth::edit');
+    $routes->post('users/update', 'Auth::updateUser');
 });

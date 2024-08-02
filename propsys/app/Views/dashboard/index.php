@@ -5,7 +5,7 @@
 
 <?= $this->section('content') ?>
 <?= $this->include('partials/sidebar') ?>
-<div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+<div class="col-xl-3 col-sm-6 mb-xl-0 mb-4 mt-4">
 
   <div class="card">
     <div class="card-header p-3 pt-2">
@@ -26,7 +26,7 @@
     </div>
   </div>
 </div>
-<div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+<div class="col-xl-3 col-sm-6 mb-xl-0 mb-4 mt-4">
   <div class="card">
     <div class="card-header p-3 pt-2">
       <div class="icon icon-lg icon-shape bg-gradient-primary shadow-primary text-center border-radius-xl mt-n4 position-absolute">
@@ -45,7 +45,7 @@
     </div>
   </div>
 </div>
-<div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+<div class="col-xl-3 col-sm-6 mb-xl-0 mb-4 mt-4">
   <div class="card">
     <div class="card-header p-3 pt-2">
       <div class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
@@ -65,7 +65,7 @@
     </div>
   </div>
 </div>
-<div class="col-xl-3 col-sm-6">
+<div class="col-xl-3 col-sm-6 mt-4">
   <div class="card">
     <div class="card-header p-3 pt-2">
       <div class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute">
@@ -150,7 +150,7 @@
     </div>
   </div>
 </div>
-<div class="row mb-4">
+<!-- <div class="row mb-4">
   <div class="col-lg-8 col-md-6 mb-md-0 mb-4">
     <div class="card">
       <div class="card-header pb-0">
@@ -545,5 +545,5 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 <?= $this->endSection() ?>

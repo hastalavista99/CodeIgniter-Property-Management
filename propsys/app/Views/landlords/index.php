@@ -123,8 +123,8 @@
             <input type="email" class="form-control ps-2" id="landlordEmail" name="email" autocomplete="off">
           </div>
           <div class="input-group input-group-outline col-md-5 my-3">
-            <label for="landlordPhone" class="form-label">Phone Number</label>
-            <input type="text" class="form-control ps-2" id="landlordPhone" name="phone_number" autocomplete="off">
+            <label for="landlordPhone" class="form-label">Phone Number (07********)</label>
+            <input type="tel" pattern="[0-9]{10}" class="form-control ps-2" id="landlordPhone" name="phone_number" autocomplete="off">
           </div>
 
           <div class="col-12 my-3">

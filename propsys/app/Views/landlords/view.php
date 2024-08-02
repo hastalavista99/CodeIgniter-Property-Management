@@ -28,7 +28,7 @@
                 </div>
             </div>
             
-            <a href="landlords" class="text-underline text-primary text-sm my-2"><i class="fas fa-chevron-left"></i> Back to landlords</a>
+            <a href="<?= site_url('landlords')?>" class="text-underline text-primary text-sm my-2"><i class="material-icons opacity 10">chevron_left</i> Back to landlords</a>
 
         </div>
         <div class="container">

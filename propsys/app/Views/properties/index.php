@@ -154,7 +154,7 @@
             </div>
           </div>
 
-          <div class="form-check">
+          <div class="form-check form-switch ms-3">
             <input class="form-check-input" type="checkbox" value="active" id="fcustomCheck1" checked="" name="active">
             <label class="custom-control-label" for="customCheck1">Active?</label>
           </div>

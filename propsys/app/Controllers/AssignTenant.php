@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Controllers\SendSMS;
 use App\Models\BillingModel;
 use App\Models\UserModel;
 use App\Models\PropertiesModel;
@@ -67,6 +68,9 @@ class AssignTenant extends BaseController
         $contract = $this->request->getPost('contract');
         $id = $this->request->getGet('id');
 
+        $alpha_numeric = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        $pass = substr(str_shuffle($alpha_numeric), 0, 8);
+
         $data = [
             'contract' => $contract,
             'tenant_status' => 'assigned',
@@ -75,12 +79,20 @@ class AssignTenant extends BaseController
         ];
 
         $model = new TenantModel();
+        $tenant = $model->find($id);
+        $name = $tenant['name'];
+        $mobile = $tenant['phone_number'];
         $query = $model->update($id, $data);
 
         if (!$query) {
             session()->setFlashdata('fail', 'Assigning Tenant Failed. Try again later');
             return redirect()->to('tenants')->withInput();
         } else {
+            $msg = "Hi, $name \n Welcome to Gloha Sacco Login to https://rent.macrobuy.co.ke to view your transactions.\nUsername: $name\nPassword: $pass; \n Regards \n Property Manager";
+
+            $sms = new SendSMS();
+
+            $sms->sendSMS($mobile, $msg);
             session()->setFlashdata('success', 'Assigned Tenant Successfully');
             return redirect()->to('tenants')->withInput();
         }
