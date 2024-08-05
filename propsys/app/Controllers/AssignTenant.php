@@ -7,7 +7,9 @@ use App\Controllers\SendSMS;
 use App\Models\BillingModel;
 use App\Models\UserModel;
 use App\Models\PropertiesModel;
+use App\Models\TenantAuth;
 use App\Models\TenantModel;
+use App\Libraries\Hash;
 use App\Models\UnitsModel;
 use App\Models\VacateModel;
 use CodeIgniter\HTTP\ResponseInterface;
@@ -36,7 +38,7 @@ class AssignTenant extends BaseController
     {
         $propertyId = $this->request->getPost('property_id');
         $unitModel = new UnitsModel();
-        $units = $unitModel->where('property_id', $propertyId)->where('occupied', 'yes')->findAll();
+        $units = $unitModel->where('property_id', $propertyId)->where('occupied', 'No')->findAll();
 
         return $this->response->setJSON($units);
     }
@@ -78,17 +80,35 @@ class AssignTenant extends BaseController
             'unit_id' => $unit
         ];
 
+        $unitData = [
+            'available' => 'No',
+            'occupied' => 'Yes'
+        ];
+        $unitModel = new UnitsModel();
         $model = new TenantModel();
+        $authModel = new TenantAuth();
+
+        
         $tenant = $model->find($id);
         $name = $tenant['name'];
         $mobile = $tenant['phone_number'];
         $query = $model->update($id, $data);
+        new \App\Libraries\Hash();
+
+        $authData = [
+            'role' => 'tenant',
+            'user_name' => $name,
+            'user_password' => Hash::encrypt($pass),
+        ];
 
         if (!$query) {
             session()->setFlashdata('fail', 'Assigning Tenant Failed. Try again later');
             return redirect()->to('tenants')->withInput();
         } else {
-            $msg = "Hi, $name \n Welcome to Gloha Sacco Login to https://rent.macrobuy.co.ke to view your transactions.\nUsername: $name\nPassword: $pass; \n Regards \n Property Manager";
+            $unitModel->update($unit, $unitData);
+            $authModel->save($authData);
+
+            $msg = "Hi, $name \n Login to https://rent.macrobuy.co.ke/auth/tenant to view your transactions.\nUsername: $name\nPassword: $pass; \n Regards \n Property Manager";
 
             $sms = new SendSMS();
 

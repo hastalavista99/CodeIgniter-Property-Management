@@ -119,7 +119,7 @@
         <div id="changePwd" class="tab-pane fade show col-md-6" role="tabpanel">
           <div class="card-body mx-3">
             <h5 class="card-title">Change Password</h5>
-            <form class="form" action="<?= site_url('auth/password/change?id=' . $userInfo['id']) ?>" method="post">
+            <form class="form" action="<?= site_url('auth/tenant/password/change?id=' . $userInfo['id']) ?>" method="post">
               <div class="input-group input-group-static mb-3 ">
                 <label for="cpassword" class="">Current Password</label>
                 <input type="password" name="cpassword" id="cpassword" class="form-control ps-2" value="<?= set_value('password') ?>" required>

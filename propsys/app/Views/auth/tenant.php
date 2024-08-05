@@ -49,23 +49,28 @@
         <div class="container">
           <div class="row">
             <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 start-0 text-center justify-content-center flex-column">
-              <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center" style="background-image: url('assets/img/illustrations/prop.png'); background-size: cover;">
+              <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center" style="background-image: url(<?= base_url('assets/img/illustrations/prop.png')?>); background-size: cover;">
               </div>
             </div>
             <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column ms-auto me-auto ms-lg-auto me-lg-5">
               <div class="card card-plain">
                 <div class="card-header">
                   <h4 class="font-weight-bolder">Tenant Sign In</h4>
-                  <p class="mb-0">Enter your ID number to proceed</p>
+                  <p class="mb-0">Enter your credentials to proceed</p>
                 </div>
 
                 
                 <div class="card-body">
-                  <form action="<?= site_url('tenantSignIn')?>" method="post" autocomplete="off">
+                  <form action="<?= site_url('auth/tenant/signin')?>" method="post" autocomplete="off">
                     <?= csrf_field()?>
                     <div class="mb-3 input-group input-group-outline">
-                      <label for="id_number" class="form-label">Id No:</label>
-                      <input type="text" name="id_number" id="id_number" class="form-control ps-2" required>
+                      <label for="id_number" class="form-label">Username</label>
+                      <input type="text" name="username" id="user_name" class="form-control ps-2" required>
+                    </div>
+
+                    <div class="mb-3 input-group input-group-outline">
+                      <label for="id_number" class="form-label">Password</label>
+                      <input type="password" name="password" id="password" class="form-control ps-2" required>
                     </div>
                     
                     <div class="text-center">
@@ -75,7 +80,7 @@
                 </div>
                 <div class="card-footer text-center pt-0 px-lg-2 px-1">
                   <p class="mb-2 text-sm mx-auto">
-                    <a href="login" class="back-btn text-primary text-gradient font-weight-bold"><i class="material-icons opacity-10 text-xxs">arrow_back_ios</i> Back To Sign In</a>
+                    <a href="<?= site_url('login')?>" class="back-btn text-primary text-gradient font-weight-bold"><i class="material-icons opacity-10 text-xxs">arrow_back_ios</i> Back To Sign In</a>
                   </p>
                 </div>
               </div>

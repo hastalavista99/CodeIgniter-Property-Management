@@ -15,8 +15,8 @@ $routes->get('login', 'Auth::index');
 $routes->get('auth/login', 'Auth::index');
 $routes->post('login', 'Auth::loginUser');
 $routes->get('logout', 'Auth::logout');
-$routes->get('tenantLogin', 'Auth::tenantLogin');
-$routes->post('tenantSignIn', 'Auth::tenantSignIn');
+$routes->get('auth/tenant', 'Auth::tenantLogin');
+$routes->post('auth/tenant/signin', 'Auth::tenantSignIn');
 $routes->group('', ['filter' => 'AuthCheck'], function ($routes) {
     $routes->get('register', 'Auth::register');
     $routes->post('registerUser', 'Auth::registerUser');
@@ -57,9 +57,14 @@ $routes->group('', ['filter' => 'AuthCheck'], function ($routes) {
     $routes->get('close_period', 'Accounts::close');
     $routes->get('users', 'Auth::users');
     $routes->get('profile', 'Auth::profile');
+    $routes->get('tenant/profile', 'Auth::tenantProfile');
     $routes->get('rentPay', 'Payments::index');
     $routes->post('rentReceive', 'Payments::rentReceive');
     $routes->get('noData', 'Dashboard::noData');
     $routes->get('users/edit', 'Auth::edit');
     $routes->post('users/update', 'Auth::updateUser');
+    $routes->post('auth/password/change', 'Auth::changeAuth');
+    $routes->post('auth/tenant/password/change', 'Auth::changeTenantAuth');
+    $routes->get('auth/tenant/logout', 'Auth::tenantLogout');
+    
 });

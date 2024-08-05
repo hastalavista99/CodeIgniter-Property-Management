@@ -6,6 +6,8 @@ use App\Controllers\BaseController;
 use App\Models\UserModel;
 use App\Models\TenantModel;
 use App\Libraries\Hash;
+use App\Models\AuthModel;
+use App\Models\TenantAuth;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\Database\Exceptions\DatabaseException;
 
@@ -163,6 +165,23 @@ class Auth extends BaseController
         return view('auth/profile', $data);
     }
 
+    public function tenantProfile()
+    {
+        helper('form');
+
+
+        $userModel = new TenantAuth();
+        $loggedInUserId = session()->get('loggedInUser');
+        $userInfo = $userModel->find($loggedInUserId);
+        $data = [
+            'users' => $userModel->getUser(),
+            'title' => 'Profile',
+            'userInfo' => $userInfo
+
+        ];
+        return view('auth/tenant_profile', $data);
+    }
+
     public function edit()
     {
         helper(['form', 'url']);
@@ -217,10 +236,10 @@ class Auth extends BaseController
         ];
 
         $existingUser = $userModel->where('user_name', $name)->first();
-        
+
         if ($existingUser && $existingUser['id'] != $userId) {
-        return redirect()->back()->with('fail', 'Username already taken. Please choose a different username.');
-    }
+            return redirect()->back()->with('fail', 'Username already taken. Please choose a different username.');
+        }
 
         if ($userModel->update($userId, $data)) {
             return redirect()->to('users')->with('success', 'User updated successfully.');
@@ -231,7 +250,7 @@ class Auth extends BaseController
 
     public function tenantLogin()
     {
-
+        helper(['form', 'url']);
         return view('auth/tenant');
     }
 
@@ -239,28 +258,160 @@ class Auth extends BaseController
     {
         helper(['form', 'url']);
 
-        $id_number = $this->request->getPost('id_number');
+        $rules = [
+            'username' => 'required',
+            'password' => 'required|min_length[5]|max_length[20]'
+        ];
 
-        $tenantModel = new TenantModel();
+        
 
-        $tenant = $tenantModel->where('id_number', $id_number)->first();
-
-        if (!$tenant) {
-            session()->setFlashdata('fail', 'Incorrect credentials provided');
-            return redirect()->to('auth/tenant')->withInput();
+        if (!$this->validate($rules)) {
+            
+            return view('auth/tenant', [
+                'validation' => $this->validator
+            ]);
         } else {
             // Process tenant info
-            $tenantId = $tenant['id'];
-            session()->set('loggedInUser', $tenantId);
 
-            $userInfo = [
-                'user_name' => $tenant['name'],
-                'role' => 'tenant'
-            ];
+            $username = esc($this->request->getPost('username'));
+            $password = esc($this->request->getPost('password'));
 
-            session()->set('userInfo', $userInfo);
-            return redirect()->to('dashboard');
+            $tenantModel = new TenantModel();
+            $user = $tenantModel->where('user_name', $username)->first();
+
+            if ($user) {
+                $checkPassword = Hash::check($password, $user['user_password']);
+                if (!$checkPassword) {
+                    session()->setFlashdata('fail', 'Incorrect password provided');
+                    return redirect()->to('auth/tenant')->withInput();
+                } else {
+                    // Process user info
+                    $userId = $user['id'];
+                    session()->set('loggedInUser', $userId);
+                    return redirect()->to('dashboard');
+                }
+            } else {
+                session()->setFlashdata('fail', 'User not found');
+                return redirect()->to('auth/tenant')->withInput();
+            }
         }
+    }
+
+    public function changeAuth()
+    {
+        helper(['form', 'url']);
+
+        // Validation rules
+        $rules = [
+            'cpassword' => 'required',
+            'newPassword' => 'required|min_length[5]|max_length[20]',
+            'renewpassword' => 'required|matches[newpassword]'
+        ];
+        // Validate the input
+        // if (!$this->validate($rules)) {
+        //     $userModel = new UserModel();
+        // $loggedInUserId = session()->get('loggedInUser');
+        // $userInfo = $userModel->find($loggedInUserId);
+        // $data = [
+        //     'users' => $userModel->getUser(),
+        //     'title' => 'Profile',
+        //     'userInfo' => $userInfo
+
+        // ];
+        //     return view('auth/profile', [
+        //         'validation' => $this->validator,
+        //         'users' => $userModel->getUser(),
+        //     'title' => 'Profile',
+        //     'userInfo' => $userInfo
+        //     ]);
+        // }
+
+        $id = $this->request->getGet('id');
+        $currentPass = esc($this->request->getPost('cpassword'));
+        $newPass = esc($this->request->getPost('newPassword'));
+
+        $authModel = new UserModel();
+        $user = $authModel->where('id', $id)->first();
+
+        // Verify current password
+        if (!Hash::check($currentPass, $user['user_password'])) {
+            return redirect()->to('profile')->with('fail', 'Incorrect current password.');
+        }
+
+        // Hash new password
+        $data = [
+            'user_password' => Hash::encrypt($newPass),
+        ];
+
+        // Update password
+        if ($authModel->update($id, $data)) {
+            return redirect()->to('profile')->with('success', 'Password updated successfully.');
+        } else {
+            return redirect()->to('profile')->withInput()->with('fail', 'Failed to update password.');
+        }
+    }
+
+    public function changeTenantAuth()
+    {
+        helper(['form', 'url']);
+
+        // Validation rules
+        $rules = [
+            'cpassword' => 'required',
+            'newPassword' => 'required|min_length[5]|max_length[20]',
+            'renewpassword' => 'required|matches[newpassword]'
+        ];
+        // Validate the input
+        // if (!$this->validate($rules)) {
+        //     $userModel = new UserModel();
+        // $loggedInUserId = session()->get('loggedInUser');
+        // $userInfo = $userModel->find($loggedInUserId);
+        // $data = [
+        //     'users' => $userModel->getUser(),
+        //     'title' => 'Profile',
+        //     'userInfo' => $userInfo
+
+        // ];
+        //     return view('auth/profile', [
+        //         'validation' => $this->validator,
+        //         'users' => $userModel->getUser(),
+        //     'title' => 'Profile',
+        //     'userInfo' => $userInfo
+        //     ]);
+        // }
+
+        $id = $this->request->getGet('id');
+        $currentPass = esc($this->request->getPost('cpassword'));
+        $newPass = esc($this->request->getPost('newPassword'));
+
+        $authModel = new TenantAuth();
+        $user = $authModel->where('id', $id)->first();
+
+        // Verify current password
+        if (!Hash::check($currentPass, $user['user_password'])) {
+            return redirect()->to('tenant/profile')->with('fail', 'Incorrect current password.');
+        }
+
+        // Hash new password
+        $data = [
+            'user_password' => Hash::encrypt($newPass),
+        ];
+
+        // Update password
+        if ($authModel->update($id, $data)) {
+            return redirect()->to('tenant/profile')->with('success', 'Password updated successfully.');
+        } else {
+            return redirect()->to('tenant/profile')->withInput()->with('fail', 'Failed to update password. Kindly recheck your password');
+        }
+    }
+
+    public function tenantLogout()
+    {
+        if (session()->has('loggedInUser')) {
+            session()->remove('loggedInUser');
+        }
+
+        return redirect()->to('auth/tenant?access=loggedout')->with('fail', "You are logged out");
     }
 
     public function logout()

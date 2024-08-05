@@ -84,6 +84,11 @@
                 <i class="material-icons opacity-10 me-2">keyboard_arrow_down</i>
               </a>
               <ul class="dropdown-menu dropdown-menu-end px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
+                <?php 
+                if ($userInfo['role'] != 'tenant')
+                {
+                  ?>
+                 
                 <li class="mb-2">
                   <a class="dropdown-item border-radius-md" href="<?= site_url('profile')?>">
                     <div class="d-flex py-1">
@@ -121,6 +126,54 @@
                     </div>
                   </a>
                 </li>
+                <?php
+                }
+                ?>
+                <?php 
+                if ($userInfo['role'] == 'tenant')
+                {
+                  ?>
+                 
+                <li class="mb-2">
+                  <a class="dropdown-item border-radius-md" href="<?= site_url('profile')?>">
+                    <div class="d-flex py-1">
+                    <i class="material-icons opacity-10 me-2">account_circle</i>
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="text-sm font-weight-normal mb-1">
+                          My Profile
+                        </h6>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li class="mb-2">
+                  <a class="dropdown-item border-radius-md" href="javascript:;">
+                    <div class="d-flex py-1">
+                      <i class="material-icons opacity-10 me-2">settings</i>
+                      <div class="d-flex flex-column justify-content-center">
+                        
+                        <h6 class="text-sm font-weight-normal mb-1">
+                          Settings
+                        </h6>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li class="mb-2">
+                  <a class="dropdown-item border-radius-md" href="<?= site_url('auth/tenant/logout')?>">
+                    <div class="d-flex py-1">
+                    <i class="material-icons opacity-10 me-2">logout</i>
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="text-sm font-weight-normal mb-1">
+                          Sign Out
+                        </h6>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <?php
+                }
+                ?>
               </ul>
             </li>
           </ul>
