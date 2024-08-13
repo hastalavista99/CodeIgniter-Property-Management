@@ -4,10 +4,10 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="assets/img/icons/favicon.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="<?= base_url('assets/img/apple-icon.png') ?>">
+    <link rel="icon" type="image/png" href="<?= base_url('assets/img/icons/favicon.png') ?>">
     <title>
-        Sign In
+        Forgot Password
     </title>
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
@@ -34,16 +34,13 @@
                 <div class="row">
                     <div class="col-lg-4 col-md-8 col-12 mx-auto">
                         <div class="card z-index-0 fadeIn3 fadeInBottom">
-                            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                                <div class="bg-gradient-primary shadow-primary border-radius-lg py-3 pe-1">
-                                    <h4 class="text-white font-weight-bolder text-center">Sign in</h4>
 
-                                </div>
-                            </div>
 
                             <div class="card-body">
+                                <p class="text-bold">Renew you password.</p>
+                                <p class="text-sm">Use a mixture of alphabetical letters, numbers and other characters to create a strong password</p>
 
-                                <form role="form" action="<?= site_url('auth') ?>" id="signupForm" class="text-start" method="post">
+                                <form role="form" action="<?= site_url('auth/renew_auth?user='.$user) ?>" id="signupForm" class="text-start" method="post">
                                     <?= csrf_field() ?>
 
                                     <?php
@@ -77,29 +74,43 @@
                                     <?php
                                     }
                                     ?>
-                                    <div class="my-3 input-group input-group-outline">
+                                    <!-- <div class="my-3 input-group input-group-outline">
                                         <label class="form-label">Username</label>
                                         <input type="text" name="name" class="form-control ps-2" value="" required>
+                                    </div> -->
+                                    <div class="mb-3 input-group input-group-static">
+                                        <label class="">Password</label>
+                                        <input type="password" name="password" id="password" class="form-control ps-2" required>
                                     </div>
-                                    <div class="mb-3 input-group input-group-outline">
-                                        <label class="form-label">Password</label>
-                                        <input type="password" name="password" class="form-control ps-2" required>
-                                    </div>
-                                    <!-- <div class="form-check form-switch d-flex align-items-center mb-3">
-                    <input class="form-check-input" type="checkbox" id="rememberMe" name="remember" <?php if (!empty($remember)) { ?>checked <?php } elseif (isset($_COOKIE["remember"])) { ?> <?php } ?>>
-                    <label class="form-check-label mb-0 ms-3" for="rememberMe">Remember me</label>
-                  </div> -->
-                                    <div class="mt-3 text-sm">
-                                        <a href="<?= site_url('auth/enterUsername') ?>" class="text-primary text-gradient ">Forgot Password?</a>
-                                    </div>
-                                    <div class="text-center">
-                                        <input type="submit" value="Sign In" class="btn bg-gradient-primary w-100 my-4 mb-2">
+                                    <div class="mb-3 input-group input-group-static">
+                                        <label class="">Confirm Password</label>
+                                        <input type="password" name="password" id="passwordConf" class="form-control ps-2" required>
                                     </div>
 
-                                    <p class="mt-3 text-sm text-center">
-                                        <a href="<?= site_url('auth/tenant') ?>" class="text-primary text-gradient font-weight-bold fs-6">Tenant?</a>
-                                    </p>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" value="" id="checkPassword">
+                                        <label class="form-check-label" for="checkPassword">
+                                            Show Password
+                                        </label>
+                                    </div>
+
+                                    <div class="text-center">
+                                        <input type="submit" value="Submit" class="btn bg-gradient-primary w-100 my-2 mb-2">
+                                    </div>
+
                                 </form>
+                                <script>
+                                    document.getElementById('checkPassword').addEventListener('change', function() {
+                                        let passwordFields = document.querySelectorAll('#password, #passwordConf');
+                                        passwordFields.forEach(field => {
+                                            if (this.checked) {
+                                                field.type = 'text';
+                                            } else {
+                                                field.type = 'password';
+                                            }
+                                        });
+                                    });
+                                </script>
                             </div>
                         </div>
                     </div>

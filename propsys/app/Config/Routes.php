@@ -15,7 +15,14 @@ $routes->get('login', 'Auth::index');
 $routes->get('auth/login', 'Auth::index');
 $routes->post('login', 'Auth::loginUser');
 $routes->get('logout', 'Auth::logout');
+$routes->get('auth/enterUsername', 'Auth::enterUsername');
+$routes->post('auth/verify', 'Auth::verifyUser');
+$routes->post('auth/renew_auth', 'Auth::renewAuth');
+$routes->get('auth/otp', 'Auth::otpInput');
+$routes->post('auth/verified', 'Auth::renew');
+$routes->get('auth/success', 'Auth::success');
 $routes->get('auth/tenant', 'Auth::tenantLogin');
+$routes->get('auth/password/success', 'Auth::success');
 $routes->post('auth/tenant/signin', 'Auth::tenantSignIn');
 $routes->group('', ['filter' => 'AuthCheck'], function ($routes) {
     $routes->get('register', 'Auth::register');

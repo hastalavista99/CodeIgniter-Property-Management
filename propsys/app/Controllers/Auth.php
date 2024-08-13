@@ -7,6 +7,7 @@ use App\Models\UserModel;
 use App\Models\TenantModel;
 use App\Libraries\Hash;
 use App\Models\AuthModel;
+use App\Models\OTPModel;
 use App\Models\TenantAuth;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\Database\Exceptions\DatabaseException;
@@ -263,10 +264,10 @@ class Auth extends BaseController
             'password' => 'required|min_length[5]|max_length[20]'
         ];
 
-        
+
 
         if (!$this->validate($rules)) {
-            
+
             return view('auth/tenant', [
                 'validation' => $this->validator
             ]);
@@ -421,5 +422,128 @@ class Auth extends BaseController
         }
 
         return redirect()->to('auth?access=loggedout')->with('fail', "You are logged out");
+    }
+
+    public function enterUsername()
+    {
+        helper(['form', 'url']);
+
+        return view('auth/enter_user');
+    }
+
+    public function verifyUser()
+    {
+        helper(['form', 'url']);
+
+        if (!$this->request->is('post')) {
+            return redirect()->to('auth/login');
+        }
+
+        $username = esc($this->request->getPost('username'));
+
+
+        $userModel = new UserModel();
+        $otpModel = new OTPModel();
+        $user = $userModel->where('user_name', $username)->first();
+
+        if ($user) {
+            $id = $user['id'];
+            $name = $user['user_name'];
+            $phone = $user['user_mobile'];
+            $alpha_numeric = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            $otp = substr(str_shuffle($alpha_numeric), 0, 6);
+            $expires = date("U") + 300;
+            $data = [
+                'username' => $name,
+                'otp' => Hash::encrypt($otp),
+                'expiry' => $expires
+            ];
+            $query = $otpModel->save($data);
+            if($query)
+            {
+                $sms = "Use ".$otp." as your OTP for Property Manager. It will be active for the next 5 minutes";
+                $smsSend = new SendSMS();
+                $smsSend->sendSMS($phone, $sms);
+            }
+            session()->set('userId', $id);
+            session()->setFlashdata('success', 'OTP sent to mobile number');
+            return redirect()->to('auth/otp')->withInput();
+        } else {
+            session()->setFlashdata('fail', 'User not found');
+            return redirect()->to('auth/enterUsername')->withInput();
+        }
+    }
+
+    public function otpInput()
+    {
+        helper(['form', 'url']);
+
+        return view('auth/otp_input');
+    }
+    public function renew()
+    {
+        helper(['form', 'url']);
+    
+        $id = $this->request->getGet('user');
+        $otp = $this->request->getPost('otp');
+    
+        $authModel = new UserModel();
+        $authQuery = $authModel->find($id);
+    
+        if (!$authQuery) {
+            return redirect()->back()->with('fail', 'User not found.');
+        }
+    
+        $username = $authQuery['user_name'];
+    
+        $model = new OTPModel();
+        $current = date("U"); // Unix timestamp for current time
+    
+        // Query to find the OTP record with matching username, OTP, and within the expiry period
+        $otpRecord = $model->where('username', $username)
+                           ->where('expiry >=', $current)
+                           ->first();
+    
+        if ($otpRecord && Hash::check($otp, $otpRecord['otp'])) {
+            // OTP is valid and within its validity period
+            $data = [
+                'user' => $id
+            ];
+            $model->where('username', $username)->delete();
+            return view('auth/forgot_password', $data);
+        } else {
+            // OTP is invalid or has expired
+            return redirect()->back()->with('fail', 'Incorrect or expired OTP. Please try again or click Resend to get a new one.');
+        }
+    }
+    
+
+    public function renewAuth()
+    {
+        helper(['form', 'url']);
+
+        $id = $this->request->getGet('user');
+        $password = $this->request->getPost('password');
+        $passwordConf = $this->request->getPost('passwordConf');
+
+        $authModel = new UserModel();
+
+        // Hash new password
+        $data = [
+            'user_password' => Hash::encrypt($password),
+        ];
+
+        // Update password
+        if ($authModel->update($id, $data)) {
+            return redirect()->to('auth/success')->with('success', 'Password updated successfully.');
+        } else {
+            return redirect()->to('auth')->withInput()->with('fail', 'Failed to update password.');
+        }
+    }
+
+    public function success()
+    {
+        helper('url');
+        return view('auth/renew_success');
     }
 }
