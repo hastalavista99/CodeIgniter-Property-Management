@@ -55,29 +55,36 @@
 
                     <?= csrf_field() ?>
 
-                    <div class="col-6">
-                        <div class="input-group input-group-outline mb-3">
-                            <label for="" class="form-label">Name</label>
+                    <div class="col-4">
+                        <div class="input-group input-group-static mb-3">
+                            <label for="" class="">Name</label>
                             <input type="text" name="name" id="" class="form-control ps-2" value="<?= set_value('name') ?>">
 
                         </div>
                     </div>
 
-                    <div class="col-6">
-                        <div class="input-group input-group-outline mb-3">
-                            <label for="" class="form-label">Email</label>
-                            <input type="text" name="email" id="" class="form-control ps-2" value="<?= set_value('email') ?>">
+                    <div class="col-4">
+                        <div class="input-group input-group-static mb-3">
+                            <label for="" class="">Email</label>
+                            <input type="email" name="email" id="" class="form-control ps-2" value="<?= set_value('email') ?>">
+
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="input-group input-group-static mb-3">
+                            <label for="" class="">Mobile</label>
+                            <input type="text" name="mobile" id="" class="form-control ps-2" value="<?= set_value('mobile') ?>">
 
                         </div>
                     </div>
 
-                    <div class="input-group input-group-outline mb-3 ">
-                        <label for="password" class="form-label">Password</label>
+                    <div class="input-group input-group-static mb-3 ">
+                        <label for="password" class="">Password</label>
                         <input type="password" name="password" id="password" class="form-control ps-2" value="<?= set_value('password') ?>">
 
                     </div>
-                    <div class="input-group input-group-outline mb-3">
-                        <label for="passwordConf" class="form-label">Confirm Password</label>
+                    <div class="input-group input-group-static mb-3">
+                        <label for="passwordConf" class="">Confirm Password</label>
                         <input type="password" name="passwordConf" id="passwordConf" class="form-control ps-2" value="<?= set_value('passwordConf') ?>">
 
                     </div>
@@ -92,7 +99,7 @@
                         </div>
                     </div>
 
-                    <div class="form-check">
+                    <div class="form-check form-switch ms-3">
                         <input class="form-check-input" type="checkbox" value="" id="checkPassword">
                         <label class="form-check-label" for="checkPassword">
                             Show Password

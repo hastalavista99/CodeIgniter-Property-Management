@@ -46,19 +46,45 @@ class Auth extends BaseController
         $validated = [
             'name' => 'required',
             'email' => 'required|valid_email',
+            'mobile' => 'required|min_length[10]|max_length[12]',
             'password' => 'required|min_length[5]|max_length[20]',
             'passwordConf' => 'required|min_length[5]|max_length[20]|matches[password]'
         ];
+
+        // $validated = $validation->setRules(
+        //     [
+        //     'name' => 'required',
+        //     'email' => 'required|valid_email',
+        //     'mobile' => 'required|min_length[10]|max_length[12]',
+        //     'password' => 'required|min_length[5]|max_length[20]',
+        //     'passwordConf' => 'required|min_length[5]|max_length[20]|matches[password]'
+        //     ],
+        //     [
+        //         'name' => [
+        //         'required' => 'You must choose a username.',
+        //     ],
+        //     'email' => [
+        //         'valid_email' => 'Please check the Email field. It does not appear to be valid.',
+        //     ],
+        //     ]
+        // );
+
+        // $signup_errors = [
+            
+        // ];
         $data = $this->request->getPost(array_keys($validated));
 
         if (!$this->validateData($data, $validated)) {
-            return view('auth/register');
+            return redirect()->to('register')
+                             ->with('errors', $this->validator->getErrors())
+                             ->withInput();
         }
         $validData = $this->validator->getValidated();
 
         // save the user
         $name = $this->request->getPost('name');
         $email = $this->request->getPost('email');
+        $mobile = $this->request->getPost('mobile');
         $password = $this->request->getPost('password');
         $passwordConf = $this->request->getPost('passwordConf');
         $role = $this->request->getPost('role');
@@ -69,6 +95,7 @@ class Auth extends BaseController
             'user_name' => $name,
             'user_email' => $email,
             'user_password' => Hash::encrypt($password),
+            'user_mobile' => $mobile
 
         ];
 
