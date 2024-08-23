@@ -43,43 +43,46 @@ class Auth extends BaseController
         if (!$this->request->is('post')) {
             return view('auth/register');
         }
-        $validated = [
+        $rules = [
             'name' => 'required',
             'email' => 'required|valid_email',
-            'mobile' => 'required|min_length[10]|max_length[12]',
-            'password' => 'required|min_length[5]|max_length[20]',
-            'passwordConf' => 'required|min_length[5]|max_length[20]|matches[password]'
+            'mobile' => [
+                'rules' => 'required|min_length[10]|max_length[12]',
+                'label' => 'Mobile',
+                'errors' => [
+                    'required' => 'Please enter your mobile number',
+                    'min_length' => 'Mobile number should be at least 10 digits',
+                    'max_length' => 'Mobile number should not be more than 12 digits'
+                ],
+
+            ],
+            'password' => [
+                'rules' => 'required|min_length[5]|max_length[20]',
+                'label' => 'Password',
+                'errors' => [
+                    'required' => 'You must provide a password',
+                    'min_length' => 'Password must be at least 5 characters long',
+                    'max_length' => 'Password must not be longer than 20 characters',
+                    ],
+            ],
+            'passwordConf' => [
+                'rules' => 'required|matches[password]',
+                'label' => 'Confirm Password',
+                'errors' => [
+                    'required' => 'Please confirm your password',
+                    'matches' => 'Password confirmation does not match password',
+                    ],
+            ],
         ];
 
-        // $validated = $validation->setRules(
-        //     [
-        //     'name' => 'required',
-        //     'email' => 'required|valid_email',
-        //     'mobile' => 'required|min_length[10]|max_length[12]',
-        //     'password' => 'required|min_length[5]|max_length[20]',
-        //     'passwordConf' => 'required|min_length[5]|max_length[20]|matches[password]'
-        //     ],
-        //     [
-        //         'name' => [
-        //         'required' => 'You must choose a username.',
-        //     ],
-        //     'email' => [
-        //         'valid_email' => 'Please check the Email field. It does not appear to be valid.',
-        //     ],
-        //     ]
-        // );
-
-        // $signup_errors = [
+        
             
-        // ];
-        $data = $this->request->getPost(array_keys($validated));
-
-        if (!$this->validateData($data, $validated)) {
-            return redirect()->to('register')
-                             ->with('errors', $this->validator->getErrors())
-                             ->withInput();
+        if (!$this->validate($rules))
+        {
+            $data["validated"] = $this->validator;
+            return redirect()->to('register')->withInput()->with('errors', $this->validator->getErrors());
         }
-        $validData = $this->validator->getValidated();
+        
 
         // save the user
         $name = $this->request->getPost('name');
@@ -276,54 +279,55 @@ class Auth extends BaseController
         }
     }
 
-    public function tenantLogin()
-    {
-        helper(['form', 'url']);
-        return view('auth/tenant');
-    }
+    // public function tenantLogin()
+    // {
+    //     helper(['form', 'url']);
+    //     return view('auth/tenant');
+    // }
 
-    public function tenantSignIn()
-    {
-        helper(['form', 'url']);
+    // public function tenantSignIn()
+    // {
+    //     helper(['form', 'url']);
 
-        $rules = [
-            'username' => 'required',
-            'password' => 'required|min_length[5]|max_length[20]'
-        ];
+    //     $rules = [
+    //         'username' => 'required',
+    //         'password' => 'required|min_length[5]|max_length[20]'
+    //     ];
 
 
 
-        if (!$this->validate($rules)) {
+    //     if (!$this->validate($rules)) {
 
-            return view('auth/tenant', [
-                'validation' => $this->validator
-            ]);
-        } else {
-            // Process tenant info
+    //         return view('auth/tenant', [
+    //             'validation' => $this->validator
+    //         ]);
+    //     } else {
+    //         // Process tenant info
 
-            $username = esc($this->request->getPost('username'));
-            $password = esc($this->request->getPost('password'));
+    //         $username = esc($this->request->getPost('username'));
+    //         $password = esc($this->request->getPost('password'));
 
-            $tenantModel = new TenantModel();
-            $user = $tenantModel->where('user_name', $username)->first();
+    //         $tenantModel = new TenantAuth();
+    //         $user = $tenantModel->where('user_name', $username)->first();
 
-            if ($user) {
-                $checkPassword = Hash::check($password, $user['user_password']);
-                if (!$checkPassword) {
-                    session()->setFlashdata('fail', 'Incorrect password provided');
-                    return redirect()->to('auth/tenant')->withInput();
-                } else {
-                    // Process user info
-                    $userId = $user['id'];
-                    session()->set('loggedInUser', $userId);
-                    return redirect()->to('dashboard');
-                }
-            } else {
-                session()->setFlashdata('fail', 'User not found');
-                return redirect()->to('auth/tenant')->withInput();
-            }
-        }
-    }
+    //         if ($user) {
+    //             $userId = $user['id'];
+    //             $checkPassword = Hash::check($password, $user['user_password']);
+    //             if (!$checkPassword) {
+    //                 session()->setFlashdata('fail', 'Incorrect password provided');
+    //                 return redirect()->to('auth/tenant')->withInput();
+    //             } else {
+    //                 // Process user info
+                    
+    //                 session()->set('loggedInUser', $userId);
+    //                 return redirect()->to('dashboard');
+    //             }
+    //         } else {
+    //             session()->setFlashdata('fail', 'User not found');
+    //             return redirect()->to('auth/tenant')->withInput();
+    //         }
+    //     }
+    // }
 
     public function changeAuth()
     {
@@ -562,7 +566,7 @@ class Auth extends BaseController
 
         // Update password
         if ($authModel->update($id, $data)) {
-            return redirect()->to('auth/success')->with('success', 'Password updated successfully.');
+            return redirect()->to('auth/success');
         } else {
             return redirect()->to('auth')->withInput()->with('fail', 'Failed to update password.');
         }

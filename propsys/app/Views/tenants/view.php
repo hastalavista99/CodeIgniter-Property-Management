@@ -35,7 +35,7 @@
                     </a>
                 </div>
             </div>
-            <a href="tenants" class="text-underline text-primary text-sm my-2"><i class="fas fa-chevron-left"></i> Back to Tenants</a>
+            <a href="<?= site_url('rent/tenants')?>" class="text-underline text-primary text-sm my-2"><i class="fas fa-chevron-left"></i> Back to Tenants</a>
 
         </div>
         <div class="container">
@@ -80,7 +80,7 @@
                                 <div class="col-md-8 d-flex align-items-center">
                                     <h6 class="mb-0">Tenant Information</h6>
                                 </div>
-                                <div class="col-md-4 text-end">
+                                <div class="col-md-4 text-center">
                                     <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#editTenantModal">
                                         <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Tenant"></i>
                                     </a>
@@ -94,8 +94,6 @@
                             </div>
                         </div>
                         <div class="card-body ">
-
-                            <hr class="horizontal gray-light my-4">
                             <ul class="list-group">
                                 <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">ID No.:</strong> &nbsp; <?= esc($tenant['id_number']) ?></li>
                                 <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Mobile:</strong> &nbsp; <?= esc($tenant['phone_number']) ?></li>

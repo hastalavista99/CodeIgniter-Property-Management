@@ -41,7 +41,7 @@
                                 <p>Password changed successfully. Login to access your account</p>
 
                                 <div class="text-center">
-                                    <a href="<?= site_url('auth')?>" class="btn bg-gradient-success w-100 my-2 mb-2"></a>
+                                    <a href="<?= site_url('auth')?>" class="btn bg-gradient-success w-100 my-2 mb-2">Back to Login</a> 
                                 </div>
 
                             </div>
@@ -58,7 +58,7 @@
     <script src="<?= base_url('assets/js/core/bootstrap.min.js') ?>"></script>
     <script src="<?= base_url('assets/js/plugins/perfect-scrollbar.min.js') ?>"></script>
     <script src="<?= base_url('assets/js/plugins/smooth-scrollbar.min.js') ?>"></script>
-    <script src="<?= base_url('assets/js/plugins/chartjs.min.js') ?>"></script>
+    <script src="<?= base_url('assets/js/plugins/chartjs.min.js') ?>"></script> 
     <script src="<?= base_url('assets/js/util.js') ?>"></script>
     <script>
         var win = navigator.platform.indexOf("Win") > -1;

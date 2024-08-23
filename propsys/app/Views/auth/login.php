@@ -20,9 +20,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
     <!-- CSS Files -->
     <link id="pagestyle" href="<?= base_url('assets/css/material-dashboard.css?v=3.1.0') ?>" rel="stylesheet" />
-    <!-- Nepcha Analytics (nepcha.com) -->
-    <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
-    <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
+   
 </head>
 
 <body class="bg-gray-200">
@@ -96,9 +94,9 @@
                                         <input type="submit" value="Sign In" class="btn bg-gradient-primary w-100 my-4 mb-2">
                                     </div>
 
-                                    <p class="mt-3 text-sm text-center">
-                                        <a href="<?= site_url('auth/tenant') ?>" class="text-primary text-gradient font-weight-bold fs-6">Tenant?</a>
-                                    </p>
+                                    <!-- <p class="mt-3 text-sm text-center">
+                                        <a href="" class="text-primary text-gradient font-weight-bold fs-6">Tenant?</a>
+                                    </p> -->
                                 </form>
                             </div>
                         </div>

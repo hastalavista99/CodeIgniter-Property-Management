@@ -18,7 +18,7 @@
         </div>
         <div class="card-body px-0 pb-2">
             <div class="container">
-                <?= validation_list_errors() ?>
+
 
                 <?php
                 if (!empty(session()->getFlashdata('success'))) {
@@ -49,6 +49,14 @@
                         </button>
                     </div>
                 <?php
+                } else if (!empty(session()->getFlashdata('errors'))) {
+                ?>
+                    <ul>
+                        <?php foreach (session('errors') as $error) : ?>
+                            <li class="text-danger"><?= esc($error) ?></li>
+                        <?php endforeach ?>
+                    </ul>
+                <?php
                 }
                 ?>
                 <form action="<?= site_url('registerUser') ?>" method="post" class="form mb-3 row">
@@ -73,19 +81,21 @@
                     <div class="col-4">
                         <div class="input-group input-group-static mb-3">
                             <label for="" class="">Mobile</label>
-                            <input type="text" name="mobile" id="" class="form-control ps-2" value="<?= set_value('mobile') ?>">
-
+                            <input type="text" name="mobile" id="" class="form-control  <?= session('errors.name') ? 'is-invalid' : '' ?> ps-2" value="<?= set_value('mobile') ?>">
+                            <div class="invalid-feedback">
+                                <?= session('errors.mobile') ?>
+                            </div>
                         </div>
                     </div>
 
                     <div class="input-group input-group-static mb-3 ">
                         <label for="password" class="">Password</label>
-                        <input type="password" name="password" id="password" class="form-control ps-2" value="<?= set_value('password') ?>">
+                        <input type="password" name="password" id="password" class="form-control ps-2">
 
                     </div>
                     <div class="input-group input-group-static mb-3">
                         <label for="passwordConf" class="">Confirm Password</label>
-                        <input type="password" name="passwordConf" id="passwordConf" class="form-control ps-2" value="<?= set_value('passwordConf') ?>">
+                        <input type="password" name="passwordConf" id="passwordConf" class="form-control ps-2">
 
                     </div>
                     <div class="col-md-2 col-sm-3">

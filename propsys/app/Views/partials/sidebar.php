@@ -28,7 +28,7 @@
             <span class="nav-link-text ms-1">Landlords</span>
           </a>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a class="nav-link text-white" href="<?= site_url('tenants') ?>">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">groups</i>
@@ -51,8 +51,8 @@
             </div>
             <span class="nav-link-text ms-1">Units</span>
           </a>
-        </li>
-        <li class="nav-item">
+        </li> -->
+        <!-- <li class="nav-item">
           <a class="nav-link text-white" href="<?= site_url('propertySale') ?>">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">landscape</i>
@@ -67,23 +67,144 @@
             </div>
             <span class="nav-link-text ms-1">Units For Sale</span>
           </a>
+        </li> -->
+        <li class="nav-item">
+          <a class="nav-link text-white" data-bs-toggle="collapse" href="#rentMenu" role="button" aria-expanded="false" aria-controls="settingsMenu">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">payments</i>
+            </div>
+            <span class="nav-link-text ms-1">For Rent</span>
+
+          </a>
+          <div class="collapse bg-gradient-faded-primary" id="rentMenu">
+            <ul class="nav flex-column ms-3">
+              <li class="nav-item">
+                <a class="nav-link text-white" href="<?= site_url('rent/properties') ?>">
+                  <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                    <i class="material-icons opacity-10">other_houses</i>
+                  </div>
+                  <span class="nav-link-text ms-1">Properties</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="<?= site_url('rent/units') ?>">
+                  <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                    <i class="material-icons opacity-10">home_work</i>
+                  </div>
+                  <span class="nav-link-text ms-1">Units</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="<?= site_url('rent/tenants') ?>">
+                  <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                    <i class="material-icons opacity-10">groups</i>
+                  </div>
+                  <span class="nav-link-text ms-1">Tenants</span>
+                </a>
+              </li>
+            </ul>
+          </div>
         </li>
         <li class="nav-item">
+          <a class="nav-link text-white" data-bs-toggle="collapse" href="#saleMenu" role="button" aria-expanded="false" aria-controls="settingsMenu">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">sell</i>
+            </div>
+            <span class="nav-link-text ms-1">For Sale</span>
+
+          </a>
+          <div class="collapse bg-gradient-faded-primary" id="saleMenu">
+            <ul class="nav flex-column ms-3">
+              <li class="nav-item">
+                <a class="nav-link text-white" href="<?= site_url('sale/properties') ?>">
+                  <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                    <i class="material-icons opacity-10">landscape</i>
+                  </div>
+                  <span class="nav-link-text ms-1">Properties</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="<?= site_url('sale/units') ?>">
+                  <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                    <i class="material-icons opacity-10">forest</i>
+                  </div>
+                  <span class="nav-link-text ms-1">Units</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="#">
+                  <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                    <i class="material-icons opacity-10">groups</i>
+                  </div>
+                  <span class="nav-link-text ms-1">Buyers</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" data-bs-toggle="collapse" href="#accountMenu" role="button" aria-expanded="false" aria-controls="settingsMenu">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">account_balance</i>
+            </div>
+            <span class="nav-link-text ms-1">Accounts</span>
+
+          </a>
+          <div class="collapse bg-gradient-faded-primary" id="accountMenu">
+            <ul class="nav flex-column ms-3">
+              <li class="nav-item">
+                <a class="nav-link text-white" href="<?= site_url('accounts/paypesa') ?>">
+                  <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                    <i class="material-icons opacity-10">smartphone</i>
+                  </div>
+                  <span class="nav-link-text ms-1">Paybill</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="<?= site_url('accounts/approval') ?>">
+                  <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                    <i class="material-icons opacity-10">checklist</i>
+                  </div>
+                  <span class="nav-link-text ms-1">Approve</span>
+                </a>
+              </li>
+              <!-- <li class="nav-item">
+                <a class="nav-link text-white" href="<?= site_url('charts') ?>">
+                  <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                    <i class="material-icons opacity-10">groups</i>
+                  </div>
+                  <span class="nav-link-text ms-1">Buyers</span>
+                </a>
+              </li> -->
+              <li class="nav-item">
+                <a class="nav-link text-white" href="#">
+                  <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                    <i class="material-icons opacity-10">receipt_long</i>
+                  </div>
+                  <span class="nav-link-text ms-1">Reports</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="#">
+                  <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                    <i class="material-icons opacity-10">lock</i>
+                  </div>
+                  <span class="nav-link-text ms-1">Close Period</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <!-- <li class="nav-item">
           <a class="nav-link text-white" href="<?= site_url('accounts') ?>">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">account_balance</i>
             </div>
             <span class="nav-link-text ms-1">Accounts</span>
           </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white" href="<?= site_url('users') ?>">
-            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">settings</i>
-            </div>
-            <span class="nav-link-text ms-1">Settings</span>
-          </a>
-        </li>
+        </li> -->
+
+        
       <?php
       } else { ?>
         <li class="nav-item">

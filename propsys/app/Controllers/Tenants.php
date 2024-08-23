@@ -106,16 +106,24 @@ class Tenants extends BaseController
     public function deleteTenant()
     {
         helper(['form', 'url']);
-
+    
         $id = $this->request->getGet('tenant');
         $tenantModel = new TenantModel();
-        $query = $tenantModel->delete($id);
-
-        if(!$query) {
-            return redirect()->back()->with('fail', 'Saving Tenant Failed');
-        } else {
-            return redirect()->back()->with('success', 'Saved Tenant Successfully');
+       
+    
+        try {
+            // Then, delete the tenant
+            $tenantModel->delete($id);
+    
+            return redirect()->back()->with('success', 'Deleted Tenant Successfully');
+        } catch (\Exception $e) {
+            if ($e->getCode() == 1451) {
+                return redirect()->back()->with('fail', 'Cannot delete this tenant as it is referenced by other records.');
+            } else {
+                return redirect()->back()->with('fail', 'An error occurred while deleting the tenant.');
+            }
         }
-
     }
+    
+
 }

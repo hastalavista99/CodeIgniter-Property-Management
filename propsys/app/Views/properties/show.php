@@ -16,7 +16,7 @@
             </div>
             <div class="col-md-2 pt-3">
                 <div>
-                    <a class="btn btn-outline-success" href="properties">
+                    <a class="btn btn-outline-success" href="<?= site_url('rent/properties')?>">
                         <i class="material-icons opacity-10 me-2">chevron_left</i>
                         back
                     </a>

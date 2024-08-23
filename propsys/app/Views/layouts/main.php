@@ -24,11 +24,10 @@
   <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
-  <!-- Nucleo Icons -->
-  <link href="<?= base_url('assets/css/nucleo-icons.css') ?>" rel="stylesheet" />
-  <link href="<?= base_url('assets/css/nucleo-svg.css') ?> " rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
   <!-- Font Awesome Icons -->
-  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/919ef0a1c2.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/2.0.7/css/dataTables.bootstrap5.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.0.2/css/buttons.dataTables.css">
@@ -39,25 +38,25 @@
   <link href="<?= base_url('assets/css/styles.css') ?> " rel="stylesheet" />
   <!-- Nepcha Analytics (nepcha.com) -->
   <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
-  <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
+  <!-- <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script> -->
 </head>
 
 <body class="g-sidenav-show bg-gray-200">
 
 
-  <?= $this->include('partials/sidebar')?>
-  
+  <?= $this->include('partials/sidebar') ?>
+
 
   <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
     <div class="spinner-wrapper">
-    <div class="spinner-border text-primary" role="status">
-      <span class="visually-hidden">Loading...</span>
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
     </div>
-  </div>
-  <!-- Navbar -->
+    <!-- Navbar -->
     <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
       <div class="container-fluid px-3">
-        
+
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
             <div class="input-group input-group-outline">
@@ -75,102 +74,100 @@
                 </div>
               </a>
             </li>
-            <li class="nav-item dropdown pe-2 d-flex align-items-center">
+            <li class="nav-item dropdown pe-2 ">
               <a href="javascript:;" class="nav-link text-body p-0 font-weight-bold" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="material-icons opacity-10 fs-3">account_circle</i>
-                <span class="d-sm-inline d-none">
-                  <?= esc($userInfo['user_name'])?></span>
+              <i class="fa fa-user me-sm-1 "></i>
+                <span class="text-center d-sm-inline d-none">
+                  <?= esc($userInfo['user_name']) ?></span>
                 <!-- <i class="fa fa-caret-down cursor-pointer"></i> -->
-                <i class="material-icons opacity-10 me-2">keyboard_arrow_down</i>
+                <i class="fa fa-caret-down"></i>
               </a>
               <ul class="dropdown-menu dropdown-menu-end px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
-                <?php 
-                if ($userInfo['role'] != 'tenant')
-                {
-                  ?>
-                 
-                <li class="mb-2">
-                  <a class="dropdown-item border-radius-md" href="<?= site_url('profile')?>">
-                    <div class="d-flex py-1">
-                    <i class="material-icons opacity-10 me-2">account_circle</i>
-                      <div class="d-flex flex-column justify-content-center">
-                        <h6 class="text-sm font-weight-normal mb-1">
-                          My Profile
-                        </h6>
+                <?php
+                if ($userInfo['role'] != 'tenant') {
+                ?>
+
+                  <li class="mb-2">
+                    <a class="dropdown-item border-radius-md" href="<?= site_url('profile') ?>">
+                      <div class="d-flex py-1">
+                        <i class="material-icons opacity-10 me-2">account_circle</i>
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="text-sm font-weight-normal mb-1">
+                            My Profile
+                          </h6>
+                        </div>
                       </div>
-                    </div>
-                  </a>
-                </li>
-                <li class="mb-2">
-                  <a class="dropdown-item border-radius-md" href="javascript:;">
-                    <div class="d-flex py-1">
-                      <i class="material-icons opacity-10 me-2">settings</i>
-                      <div class="d-flex flex-column justify-content-center">
-                        
-                        <h6 class="text-sm font-weight-normal mb-1">
-                          Settings
-                        </h6>
+                    </a>
+                  </li>
+                  <li class="mb-2">
+                    <a class="dropdown-item border-radius-md" href="javascript:;">
+                      <div class="d-flex py-1">
+                        <i class="material-icons opacity-10 me-2">settings</i>
+                        <div class="d-flex flex-column justify-content-center">
+
+                          <h6 class="text-sm font-weight-normal mb-1">
+                            Settings
+                          </h6>
+                        </div>
                       </div>
-                    </div>
-                  </a>
-                </li>
-                <li class="mb-2">
-                  <a class="dropdown-item border-radius-md" href="<?= site_url('logout')?>">
-                    <div class="d-flex py-1">
-                    <i class="material-icons opacity-10 me-2">logout</i>
-                      <div class="d-flex flex-column justify-content-center">
-                        <h6 class="text-sm font-weight-normal mb-1">
-                          Sign Out
-                        </h6>
+                    </a>
+                  </li>
+                  <li class="mb-2">
+                    <a class="dropdown-item border-radius-md" href="<?= site_url('logout') ?>">
+                      <div class="d-flex py-1">
+                        <i class="material-icons opacity-10 me-2">logout</i>
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="text-sm font-weight-normal mb-1">
+                            Sign Out
+                          </h6>
+                        </div>
                       </div>
-                    </div>
-                  </a>
-                </li>
+                    </a>
+                  </li>
                 <?php
                 }
                 ?>
-                <?php 
-                if ($userInfo['role'] == 'tenant')
-                {
-                  ?>
-                 
-                <li class="mb-2">
-                  <a class="dropdown-item border-radius-md" href="<?= site_url('profile')?>">
-                    <div class="d-flex py-1">
-                    <i class="material-icons opacity-10 me-2">account_circle</i>
-                      <div class="d-flex flex-column justify-content-center">
-                        <h6 class="text-sm font-weight-normal mb-1">
-                          My Profile
-                        </h6>
+                <?php
+                if ($userInfo['role'] == 'tenant') {
+                ?>
+
+                  <li class="mb-2">
+                    <a class="dropdown-item border-radius-md" href="<?= site_url('profile') ?>">
+                      <div class="d-flex py-1">
+                        <i class="material-icons opacity-10 me-2">account_circle</i>
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="text-sm font-weight-normal mb-1">
+                            My Profile
+                          </h6>
+                        </div>
                       </div>
-                    </div>
-                  </a>
-                </li>
-                <li class="mb-2">
-                  <a class="dropdown-item border-radius-md" href="javascript:;">
-                    <div class="d-flex py-1">
-                      <i class="material-icons opacity-10 me-2">settings</i>
-                      <div class="d-flex flex-column justify-content-center">
-                        
-                        <h6 class="text-sm font-weight-normal mb-1">
-                          Settings
-                        </h6>
+                    </a>
+                  </li>
+                  <li class="mb-2">
+                    <a class="dropdown-item border-radius-md" href="javascript:;">
+                      <div class="d-flex py-1">
+                        <i class="material-icons opacity-10 me-2">settings</i>
+                        <div class="d-flex flex-column justify-content-center">
+
+                          <h6 class="text-sm font-weight-normal mb-1">
+                            Settings
+                          </h6>
+                        </div>
                       </div>
-                    </div>
-                  </a>
-                </li>
-                <li class="mb-2">
-                  <a class="dropdown-item border-radius-md" href="<?= site_url('auth/tenant/logout')?>">
-                    <div class="d-flex py-1">
-                    <i class="material-icons opacity-10 me-2">logout</i>
-                      <div class="d-flex flex-column justify-content-center">
-                        <h6 class="text-sm font-weight-normal mb-1">
-                          Sign Out
-                        </h6>
+                    </a>
+                  </li>
+                  <li class="mb-2">
+                    <a class="dropdown-item border-radius-md" href="<?= site_url('auth/tenant/logout') ?>">
+                      <div class="d-flex py-1">
+                        <i class="material-icons opacity-10 me-2">logout</i>
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="text-sm font-weight-normal mb-1">
+                            Sign Out
+                          </h6>
+                        </div>
                       </div>
-                    </div>
-                  </a>
-                </li>
+                    </a>
+                  </li>
                 <?php
                 }
                 ?>
@@ -193,7 +190,7 @@
                 ©
                 <script>
                   document.write(new Date().getFullYear());
-                </script>, 
+                </script>,
                 <a href="https://www.macrologicsys.com" class="font-weight-bold" target="_blank">McLogic</a>
               </div>
             </div>
@@ -309,6 +306,8 @@
   <script src="<?= base_url('assets/js/plugins/chartjs.min.js') ?>"></script>
   <script src="<?= base_url('assets/js/plugins/countup.min.js') ?>"></script>
   <script src="<?= base_url('assets/js/util.js') ?>"></script>
+
+  
   <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
   <script src="https://cdn.datatables.net/2.0.7/js/dataTables.bootstrap5.js"></script>
   <script src="https://cdn.datatables.net/buttons/3.0.2/js/dataTables.buttons.js"></script>
@@ -607,7 +606,6 @@
     });
   </script>
   <script>
-
     var win = navigator.platform.indexOf("Win") > -1;
     if (win && document.querySelector("#sidenav-scrollbar")) {
       var options = {
@@ -617,8 +615,8 @@
     }
   </script>
   <!-- Github buttons -->
-  
-  <script src="<?= base_url('assets/js/material-dashboard.min.js?v=3.1.0')?>"></script>
+
+  <script src="<?= base_url('assets/js/material-dashboard.min.js?v=3.1.0') ?>"></script>
 </body>
 
 </html>

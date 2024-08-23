@@ -86,19 +86,22 @@ class AssignTenant extends BaseController
         ];
         $unitModel = new UnitsModel();
         $model = new TenantModel();
-        $authModel = new TenantAuth();
+        $authModel = new UserModel();
 
         
         $tenant = $model->find($id);
         $name = $tenant['name'];
         $mobile = $tenant['phone_number'];
+        $email = $tenant['email'];
         $query = $model->update($id, $data);
         new \App\Libraries\Hash();
 
         $authData = [
             'role' => 'tenant',
             'user_name' => $name,
+            'user_email' => $email,
             'user_password' => Hash::encrypt($pass),
+            'user_mobile' => $mobile
         ];
 
         if (!$query) {
@@ -108,7 +111,7 @@ class AssignTenant extends BaseController
             $unitModel->update($unit, $unitData);
             $authModel->save($authData);
 
-            $msg = "Hi, $name \n Login to https://rent.macrobuy.co.ke/auth/tenant to view your transactions.\nUsername: $name\nPassword: $pass; \n Regards \n Property Manager";
+            $msg = "Hi, $name \n Login to https://rent.macrobuy.co.ke to view your transactions.\nUsername: $name\nPassword: $pass; \n Regards \n Property Manager";
 
             $sms = new SendSMS();
 

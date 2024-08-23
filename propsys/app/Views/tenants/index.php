@@ -103,7 +103,8 @@
 
                 </td>
                 <td>
-                  <a href="<?= site_url('deleteTenant?tenant=' . $tenant['id']) ?>">
+                  <!-- site_url('deleteTenant?tenant=' . $tenant['id'])  -->
+                  <a href="#">
                     <i class="fas fa-trash text-danger text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Tenant"></i>
                   </a>
                 </td>
