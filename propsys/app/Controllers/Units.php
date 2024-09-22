@@ -111,4 +111,22 @@ class Units extends BaseController
 
         return view('units/view', $data);
     }
+
+    public function billPage()
+    {
+        $model = new UnitsModel();
+        $userModel = new UserModel();
+        $property = new PropertiesModel();
+
+        $unitId = $this->request->getGet('unit');
+        $loggedInUserId = session()->get('loggedInUser');
+        $userInfo = $userModel->find($loggedInUserId);
+
+        $data = [
+            'unit_id' => $unitId,
+            'title' => 'Bills',
+            'userInfo' => $userInfo,
+        ];
+        return view('units/bills', $data);
+    }
 }

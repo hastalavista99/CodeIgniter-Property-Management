@@ -14,22 +14,28 @@
             <h4 class="row text-capitalize ps-3"><?= esc($title) ?></h4>
           </div>
         </div>
-        <div class="col-md-2 pt-3">
-          <div>
-            <a class="btn btn-primary" href="<?= site_url('rentPay')?>">
-              <i class="material-icons opacity-10 me-2">payments</i>
-              Pay Rent
-            </a>
+        <?php
+        if ($userInfo['role'] != 'landlord') {
+        ?>
+          <div class="col-md-2 pt-3">
+            <div>
+              <a class="btn btn-primary" href="<?= site_url('rentPay') ?>">
+                <i class="material-icons opacity-10 me-2">payments</i>
+                Pay Rent
+              </a>
+            </div>
           </div>
-        </div>
-        <div class="col-md-2 pt-3">
-          <div>
-            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tenantModal">
-              <i class="material-icons opacity-10 me-2">person_add</i>
-              Tenant
-            </button>
+          <div class="col-md-2 pt-3">
+            <div>
+              <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tenantModal">
+                <i class="material-icons opacity-10 me-2">person_add</i>
+                Tenant
+              </button>
+            </div>
           </div>
-        </div>
+        <?php
+        }
+        ?>
     </div>
     <div class="card-body px-0 pb-2">
       <div class="container">
@@ -67,7 +73,7 @@
       </div>
       <div class="table-responsive p-0">
         <table class="table align-items-center mb-0" id="table">
-          <thead> 
+          <thead>
             <tr>
               <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
               <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Name</th>
@@ -77,8 +83,14 @@
               <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
               <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Property</th>
               <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">unit no</th>
-              <th class="text-secondary opacity-7"></th>
-              <th class="text-secondary opacity-7"></th>
+              <?php
+              if ($userInfo['role'] != 'landlord') {
+              ?>
+                <th class="text-secondary opacity-7"></th>
+                <th class="text-secondary opacity-7"></th>
+              <?php
+              }
+              ?>
             </tr>
           </thead>
           <tbody>
@@ -93,22 +105,26 @@
                 <td class="text-center"><?= esc($tenant['tenant_status']) ?></td>
                 <td class="text-center"><?= esc($tenant['property_name']) ?></td>
                 <td class="text-center"><?= esc($tenant['unit_number']) ?></td>
-                <td class="text-center">
-                  <?php if ($tenant['tenant_status'] == 'unassigned') { ?>
-                    <a href="<?= site_url('assign?id=' . $tenant['id']) ?>" class="text-success text-uppercase text-xs">Assign</a>
+                <?php
+                if ($userInfo['role'] != 'landlord') {
+                ?>
+                  <td class="text-center">
+                    <?php if ($tenant['tenant_status'] == 'unassigned') { ?>
+                      <a href="<?= site_url('assign?id=' . $tenant['id']) ?>" class="text-success text-uppercase text-xs">Assign</a>
 
-                  <?php } else { ?>
-                    <a href="<?= site_url('vacate?tenant=' . $tenant['id'] . '&prop=' . $tenant['property_name'] . '&unit=' . $tenant['unit_number']) ?>" class="text-warning text-uppercase text-xs">vacate</a>
-                  <?php } ?>
-
-                </td>
-                <td>
-                  <!-- site_url('deleteTenant?tenant=' . $tenant['id'])  -->
-                  <a href="#">
-                    <i class="fas fa-trash text-danger text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Tenant"></i>
-                  </a>
-                </td>
-
+                    <?php } else { ?>
+                      <a href="<?= site_url('vacate?tenant=' . $tenant['id'] . '&prop=' . $tenant['property_name'] . '&unit=' . $tenant['unit_number']) ?>" class="text-warning text-uppercase text-xs">vacate</a>
+                    <?php } ?>
+                  </td>
+                  <td>
+                    <!-- site_url('deleteTenant?tenant=' . $tenant['id'])  -->
+                    <a href="#">
+                      <i class="fas fa-trash text-danger text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Tenant"></i>
+                    </a>
+                  </td>
+                <?php
+                }
+                ?>
               </tr>
             <?php endforeach ?>
           </tbody>

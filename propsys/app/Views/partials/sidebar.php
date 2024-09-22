@@ -17,9 +17,55 @@
           <span class="nav-link-text ms-1">Dashboard</span>
         </a>
       </li>
-      <?php if ($userInfo['role'] != 'tenant') { ?>
 
-
+      <?php if ($userInfo['role'] == 'landlord') { ?>
+        <li class="nav-item">
+          <a class="nav-link text-white" data-bs-toggle="collapse" href="#propMenu" role="button" aria-expanded="false" aria-controls="settingsMenu">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">apartment</i>
+            </div>
+            <span class="nav-link-text ms-1">My Properties</span>
+          </a>
+          <div class="collapse bg-gradient-faded-primary" id="propMenu">
+            <ul class="nav flex-column ms-3">
+              <li class="nav-item">
+                <a class="nav-link text-white" href="<?= site_url('rent/my_properties?landlord=' . $userInfo['name']) ?>">
+                  <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                    <i class="material-icons opacity-10">other_houses</i>
+                  </div>
+                  <span class="nav-link-text ms-1">For Rent</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="<?= site_url('sale/my_properties?landlord=' . $userInfo['name']) ?>">
+                  <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                    <i class="material-icons opacity-10">forest</i>
+                  </div>
+                  <span class="nav-link-text ms-1">For Sale</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="<?= site_url('rent/my_tenants?landlord=' . $userInfo['name'])?>">
+                  <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                    <i class="material-icons opacity-10">groups</i>
+                  </div>
+                  <span class="nav-link-text ms-1">Tenants</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="<?= site_url('dashboard') ?>">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">paid</i>
+            </div>
+            <span class="nav-link-text ms-1">Payments</span>
+          </a>
+        </li>
+      <?php
+      } ?>
+      <?php if ($userInfo['role'] == 'admin') { ?>
         <li class="nav-item">
           <a class="nav-link text-white" href="<?= site_url('landlords') ?>">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -195,6 +241,14 @@
             </ul>
           </div>
         </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="<?= site_url('users') ?>">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">manage_accounts</i>
+            </div>
+            <span class="nav-link-text ms-1">Users</span>
+          </a>
+        </li>
         <!-- <li class="nav-item">
           <a class="nav-link text-white" href="<?= site_url('accounts') ?>">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -204,9 +258,9 @@
           </a>
         </li> -->
 
-        
+
       <?php
-      } else { ?>
+      } else if ($userInfo['role'] == 'tenant') { ?>
         <li class="nav-item">
           <a class="nav-link text-white" href="<?= site_url('profile') ?>">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -224,7 +278,7 @@
   </div>
   <div class="sidenav-footer position-absolute w-100 bottom-0">
     <div class="mx-3">
-      <a class="btn btn-outline-primary mt-4 w-100" href="https://www.creative-tim.com/learning-lab/bootstrap/overview/material-dashboard?ref=sidebarfree" type="button">Macrologic Systems</a>
+      <a class="btn btn-outline-primary mt-4 w-100" href="https://www.macrologicsys.com" type="button">Macrologic Systems</a>
 
     </div>
   </div>

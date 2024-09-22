@@ -18,7 +18,6 @@
         </div>
         <div class="card-body px-0 pb-2">
             <div class="container">
-                <?= validation_list_errors() ?>
 
                 <?php
                 if (!empty(session()->getFlashdata('success'))) {
@@ -49,8 +48,16 @@
                         </button>
                     </div>
                 <?php
-                }
-                ?>
+                }else if (!empty(session()->getFlashdata('errors'))) {
+                    ?>
+                        <ul>
+                            <?php foreach (session('errors') as $error) : ?>
+                                <li class="text-danger"><?= esc($error) ?></li>
+                            <?php endforeach ?>
+                        </ul>
+                    <?php
+                    }
+                    ?>
                 <form action="<?= site_url('users/update?id='.$user['id']) ?>" method="post" class="form mb-3 row">
 
                     <?= csrf_field() ?>
@@ -92,7 +99,7 @@
                         </div>
                     </div>
 
-                    <div class="form-check form-switch">
+                    <div class="form-check form-switch ms-3">
                         <input class="form-check-input" type="checkbox" value="" id="checkPassword">
                         <label class="form-check-label" for="checkPassword">
                             Show Password

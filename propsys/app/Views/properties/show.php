@@ -15,12 +15,25 @@
                 </div>
             </div>
             <div class="col-md-2 pt-3">
+                <?php if ($userInfo['role'] != 'landlord')
+                {
+                    ?>
                 <div>
                     <a class="btn btn-outline-success" href="<?= site_url('rent/properties')?>">
                         <i class="material-icons opacity-10 me-2">chevron_left</i>
                         back
                     </a>
                 </div>
+                <?php
+                } else {?>
+                <div>
+                    <a class="btn btn-outline-success" href="<?= site_url('rent/my_properties?landlord=' . $userInfo['user_name'])?>">
+                        <i class="material-icons opacity-10 me-2">chevron_left</i>
+                        back
+                    </a>
+                </div>
+
+                <?php } ?>
             </div>
         </div>
         <div class="card-body px-0 pb-2">

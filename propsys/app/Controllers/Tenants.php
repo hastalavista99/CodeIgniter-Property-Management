@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\LandlordsModel;
 use App\Models\TenantModel;
 use App\Models\UserModel;
 use CodeIgniter\HTTP\ResponseInterface;
@@ -18,6 +19,24 @@ class Tenants extends BaseController
 
         $data = [
             'tenants' => $model->getTenants(),
+            'title' => 'Tenants',
+            'userInfo' => $userInfo
+        ];
+        return view('tenants/index', $data);
+    }
+    public function myTenants()
+    {
+        $model = new TenantModel();
+        $userModel = new UserModel();
+        $landlordModel = new LandlordsModel();
+        $loggedInUserId = session()->get('loggedInUser');
+        $userInfo = $userModel->find($loggedInUserId);
+
+        $name = $this->request->getGet('landlord');
+        $landlord = $landlordModel->where('name', $name)->first();
+        $landlordId = $landlord['id'];
+        $data = [
+            'tenants' => $model->getTenants($landlordId),
             'title' => 'Tenants',
             'userInfo' => $userInfo
         ];

@@ -22,14 +22,7 @@
 
 
                 </div>
-                <div class="col-md-2 pt-3">
-                    <div>
-                        <a href="<?= site_url('accounts') ?>" class="btn btn-success">
-                            <i class="material-icons opacity-10">chevron_left</i>
-                            Back
-                        </a>
-                    </div>
-                </div>
+              
         </div>
         <div class="card-body px-0 pb-2">
             <div class="table-responsive p-0">

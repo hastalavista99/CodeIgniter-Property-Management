@@ -15,7 +15,7 @@
             </div>
             <div class="col-md-2 pt-3">
                 <div>
-                    <a class="btn btn-success" href="tenants">
+                    <a class="btn btn-success" href="<?= site_url('rent/tenants')?>">
                         <i class="material-icons opacity-10">chevron_left</i>
                         Back
                     </a>

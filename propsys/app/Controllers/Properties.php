@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
 use App\Models\PropertiesModel;
+use App\Models\PropertySaleModel;
 use App\Models\UnitsModel;
 use App\Models\UserModel;
 use App\Models\LandlordsModel;
@@ -30,7 +31,7 @@ class Properties extends BaseController
             'landlords' => $landlord->findAll(),
             'types' => $type->findAll()
         ];
-    
+
 
         $properties = $propertyModel->getProperties();
         foreach ($properties as $property) {
@@ -68,13 +69,11 @@ class Properties extends BaseController
         $model = new PropertiesModel();
         $query = $model->save($data);
 
-        if(!$query) {
+        if (!$query) {
             return redirect()->back()->with('fail', 'Saving Property Failed');
         } else {
             return redirect()->back()->with('success', 'Saved Property Successfully');
         }
-
-
     }
 
     public function show()
@@ -84,7 +83,7 @@ class Properties extends BaseController
         $landlordModel = new LandlordsModel();
         $unitsModel = new UnitsModel();
         $property = new PropertiesModel();
-        $each = $property->where('name',$name)->first();
+        $each = $property->where('name', $name)->first();
         $propertyId = $each['id'];
         $landlordId = $each['landlord_id'];
         $landlord = $landlordModel->find($landlordId);
@@ -102,4 +101,111 @@ class Properties extends BaseController
         ];
         return view('properties/show', $data);
     }
+
+    public function myPropertiesRent()
+    {
+        $name = $this->request->getGet('landlord');
+
+        if (!$name) {
+            // Handle missing landlord name error
+            return redirect()->back()->with('error', 'Landlord name is required.');
+        }
+
+        $landlordModel = new LandlordsModel();
+        $propertiesModel = new PropertiesModel();
+        $unitsModel = new UnitsModel();
+        $userModel = new UserModel();
+
+        // Fetch landlord by name
+        $landlord = $landlordModel->where('name', $name)->first(); // Use 'first()' instead of 'findAll()' for a single result
+
+        if (!$landlord) {
+            // Handle landlord not found
+            return redirect()->back()->with('error', 'Landlord not found.');
+        }
+
+        $landlordId = $landlord['id']; // Adjust according to your database structure
+
+        // Fetch user info for logged-in user
+        $loggedInUserId = session()->get('loggedInUser');
+        $userInfo = $userModel->find($loggedInUserId);
+
+        if (!$userInfo) {
+            // Handle user not found
+            return redirect()->back()->with('error', 'User not found.');
+        }
+
+        // Fetch properties for the landlord
+        $properties = $propertiesModel->where('landlord_id', $landlordId)->findAll();
+
+        $data = [
+            'title' => 'My Properties',
+            'properties' => [],
+            'userInfo' => $userInfo
+        ];
+
+        if (!empty($properties)) {
+            $propertyIds = array_column($properties, 'id');
+
+            // Optimize: Fetch all unit data for these properties in one go
+            $unitsData = $unitsModel->getUnitsByPropertyIds($propertyIds);
+
+            foreach ($properties as &$property) { // Use reference to directly modify $properties array
+                $propertyId = $property['id'];
+
+                $property['vacant_units'] = $unitsData[$propertyId]['vacant_units'] ?? 0;
+                $property['occupied_units'] = $unitsData[$propertyId]['occupied_units'] ?? 0;
+                $property['total_units'] = $unitsData[$propertyId]['total_units'] ?? 0;
+
+                $data['properties'][] = $property;
+            }
+        }
+
+        return view('properties/my_rent', $data);
+    }
+
+    public function myPropertiesSale()
+    {
+        $name = $this->request->getGet('landlord');
+
+        if (!$name) {
+            // Handle missing landlord name error
+            return redirect()->back()->with('error', 'Something went wrong. Please sign in again.');
+        }
+
+        $landlordModel = new LandlordsModel();
+        $propertiesModel = new PropertySaleModel();
+        $userModel = new UserModel();
+
+        // Fetch landlord by name
+        $landlord = $landlordModel->where('name', $name)->first(); // Use 'first()' instead of 'findAll()' for a single result
+
+        if (!$landlord) {
+            // Handle landlord not found
+            return redirect()->back()->with('error', 'Landlord not found.');
+        }
+
+        $landlordId = $landlord['id']; // Adjust according to your database structure
+
+        // Fetch user info for logged-in user
+        $loggedInUserId = session()->get('loggedInUser');
+        $userInfo = $userModel->find($loggedInUserId);
+
+        if (!$userInfo) {
+            // Handle user not found
+            return redirect()->back()->with('error', 'User not found.');
+        }
+
+        // Fetch properties for the landlord
+        $properties = $propertiesModel->where('landlord_id', $landlordId)->findAll();
+
+        $data = [
+            'title' => 'My Properties',
+            'properties' => $properties,
+            'userInfo' => $userInfo,
+            'landlord' => $landlord['name']
+        ];
+        return view('properties/my_sale', $data);
+    }
+
 }

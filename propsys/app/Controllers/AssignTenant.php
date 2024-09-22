@@ -96,9 +96,21 @@ class AssignTenant extends BaseController
         $query = $model->update($id, $data);
         new \App\Libraries\Hash();
 
+        // Initialize username with the user's name
+        $usernameBase = strtolower(preg_replace('/\s+/', '', $name)); // Remove spaces and convert to lowercase
+        $username = $usernameBase;
+
+        //in case of same username
+        $counter = 1;
+        while ($authModel->where('user_name', $username)->first()) {
+            $username = $usernameBase . $counter;
+            $counter++;
+        }
+
         $authData = [
             'role' => 'tenant',
-            'user_name' => $name,
+            'name' => $name,
+            'user_name' => $username,
             'user_email' => $email,
             'user_password' => Hash::encrypt($pass),
             'user_mobile' => $mobile
@@ -111,13 +123,13 @@ class AssignTenant extends BaseController
             $unitModel->update($unit, $unitData);
             $authModel->save($authData);
 
-            $msg = "Hi, $name \n Login to https://rent.macrobuy.co.ke to view your transactions.\nUsername: $name\nPassword: $pass; \n Regards \n Property Manager";
+            $msg = "Hi, $username \n Login to https://rent.macrobuy.co.ke to view your transactions.\nUsername: $name\nPassword: $pass; \n Regards \n Property Manager";
 
             $sms = new SendSMS();
 
             $sms->sendSMS($mobile, $msg);
             session()->setFlashdata('success', 'Assigned Tenant Successfully');
-            return redirect()->to('tenants')->withInput();
+            return redirect()->to('rent/tenants')->withInput();
         }
     }
 

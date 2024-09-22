@@ -44,9 +44,13 @@ $routes->group('', ['filter' => 'AuthCheck'], function ($routes) {
     $routes->post('editTenant', 'Tenants::editTenant');
     $routes->get('deleteTenant', 'Tenants::deleteTenant');
     $routes->get('rent/properties', 'Properties::index');
+    $routes->get('rent/my_properties', 'Properties::myPropertiesRent');
+    $routes->get('sale/my_properties', 'Properties::myPropertiesSale');
+    $routes->get('rent/my_tenants', 'Tenants::myTenants');
     $routes->get('propertyShow', 'Properties::show');
     $routes->post('insertProperty', 'Properties::insertProperty');
     $routes->get('rent/units', 'Units::index');
+    $routes->get('rent/units/bills', 'Units::billPage');
     $routes->post('insertUnit', 'Units::insertUnit');
     $routes->get('viewUnit', 'Units::view');
     $routes->post('propertySale', 'PropertySale::propertySale');

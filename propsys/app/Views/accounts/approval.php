@@ -14,15 +14,6 @@
                     <h4 class="row text-capitalize ps-3"><?= esc($title) ?></h4>
                 </div>
             </div>
-            <div class="col-md-2 pt-3">
-                <div>
-                    <a class="btn btn-success" href="accounts">
-                        <i class="material-icons opacity-10">arrow_back_ios</i>
-                        Back
-                    </a>
-                </div>
-            </div>
-
         </div>
         <div class="card-body px-0 pb-2">
             <ul class="list-group list-group-xxl my-2" style="list-style: none;">

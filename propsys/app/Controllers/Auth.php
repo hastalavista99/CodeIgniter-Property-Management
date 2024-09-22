@@ -63,7 +63,7 @@ class Auth extends BaseController
                     'required' => 'You must provide a password',
                     'min_length' => 'Password must be at least 5 characters long',
                     'max_length' => 'Password must not be longer than 20 characters',
-                    ],
+                ],
             ],
             'passwordConf' => [
                 'rules' => 'required|matches[password]',
@@ -71,18 +71,17 @@ class Auth extends BaseController
                 'errors' => [
                     'required' => 'Please confirm your password',
                     'matches' => 'Password confirmation does not match password',
-                    ],
+                ],
             ],
         ];
 
-        
-            
-        if (!$this->validate($rules))
-        {
+
+
+        if (!$this->validate($rules)) {
             $data["validated"] = $this->validator;
             return redirect()->to('register')->withInput()->with('errors', $this->validator->getErrors());
         }
-        
+
 
         // save the user
         $name = $this->request->getPost('name');
@@ -92,9 +91,24 @@ class Auth extends BaseController
         $passwordConf = $this->request->getPost('passwordConf');
         $role = $this->request->getPost('role');
 
+        $userModel = new \App\Models\UserModel();
+
+        // Initialize username with the user's name
+        $usernameBase = strtolower(preg_replace('/\s+/', '', $name)); // Remove spaces and convert to lowercase
+        $username = $usernameBase;
+
+        //in case of same username
+        $counter = 1;
+        while ($userModel->where('user_name', $username)->first()) {
+            $username = $usernameBase . $counter;
+            $counter++;
+        }
+
+
         new \App\Libraries\Hash();
         $data = [
             'role' => $role,
+            'name' => $name,
             'user_name' => $name,
             'user_email' => $email,
             'user_password' => Hash::encrypt($password),
@@ -104,7 +118,7 @@ class Auth extends BaseController
 
 
         // storing data
-        $userModel = new \App\Models\UserModel();
+
 
         try {
             $userModel->insert($data);
@@ -225,7 +239,7 @@ class Auth extends BaseController
         $userData = $userModel->find($userId);
         $data = [
             'user' => $userData,
-            'title' => 'Edit Profile',
+            'title' => 'Edit User',
             'userInfo' => $userInfo
         ];
         return view('auth/edit_user', $data);
@@ -235,16 +249,41 @@ class Auth extends BaseController
     {
         helper(['form', 'url']);
 
-        $validated = [
+        $rules = [
             'name' => 'required',
             'email' => 'required|valid_email',
-            'password' => 'required|min_length[5]|max_length[20]',
-            'passwordConf' => 'required|min_length[5]|max_length[20]|matches[password]'
+            'mobile' => [
+                'rules' => 'required|min_length[10]|max_length[12]',
+                'label' => 'Mobile',
+                'errors' => [
+                    'required' => 'Please enter your mobile number',
+                    'min_length' => 'Mobile number should be at least 10 digits',
+                    'max_length' => 'Mobile number should not be more than 12 digits'
+                ],
+
+            ],
+            'password' => [
+                'rules' => 'required|min_length[5]|max_length[20]',
+                'label' => 'Password',
+                'errors' => [
+                    'required' => 'You must provide a password',
+                    'min_length' => 'Password must be at least 5 characters long',
+                    'max_length' => 'Password must not be longer than 20 characters',
+                ],
+            ],
+            'passwordConf' => [
+                'rules' => 'required|matches[password]',
+                'label' => 'Confirm Password',
+                'errors' => [
+                    'required' => 'Please confirm your password',
+                    'matches' => 'Password confirmation does not match password',
+                ],
+            ],
         ];
-        $data = $this->request->getPost(array_keys($validated));
-        // Validate data
-        if (!$this->validate($validated)) {
-            return redirect()->back()->withInput()->with('fail', 'Validation failed. Please check your input.');
+
+        if (!$this->validate($rules)) {
+            $data["validated"] = $this->validator;
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
         $userModel = new UserModel();
@@ -260,7 +299,7 @@ class Auth extends BaseController
         new \App\Libraries\Hash();
         $data = [
             'role' => $role,
-            'user_name' => $name,
+            'name' => $name,
             'user_email' => $email,
             'user_password' => Hash::encrypt($password),
 
@@ -318,7 +357,7 @@ class Auth extends BaseController
     //                 return redirect()->to('auth/tenant')->withInput();
     //             } else {
     //                 // Process user info
-                    
+
     //                 session()->set('loggedInUser', $userId);
     //                 return redirect()->to('dashboard');
     //             }
@@ -490,9 +529,8 @@ class Auth extends BaseController
                 'expiry' => $expires
             ];
             $query = $otpModel->save($data);
-            if($query)
-            {
-                $sms = "Use ".$otp." as your OTP for Property Manager. It will be active for the next 5 minutes";
+            if ($query) {
+                $sms = "Use " . $otp . " as your OTP for Property Manager. It will be active for the next 5 minutes";
                 $smsSend = new SendSMS();
                 $smsSend->sendSMS($phone, $sms);
             }
@@ -514,27 +552,27 @@ class Auth extends BaseController
     public function renew()
     {
         helper(['form', 'url']);
-    
+
         $id = $this->request->getGet('user');
         $otp = $this->request->getPost('otp');
-    
+
         $authModel = new UserModel();
         $authQuery = $authModel->find($id);
-    
+
         if (!$authQuery) {
             return redirect()->back()->with('fail', 'User not found.');
         }
-    
+
         $username = $authQuery['user_name'];
-    
+
         $model = new OTPModel();
         $current = date("U"); // Unix timestamp for current time
-    
+
         // Query to find the OTP record with matching username, OTP, and within the expiry period
         $otpRecord = $model->where('username', $username)
-                           ->where('expiry >=', $current)
-                           ->first();
-    
+            ->where('expiry >=', $current)
+            ->first();
+
         if ($otpRecord && Hash::check($otp, $otpRecord['otp'])) {
             // OTP is valid and within its validity period
             $data = [
@@ -547,7 +585,7 @@ class Auth extends BaseController
             return redirect()->back()->with('fail', 'Incorrect or expired OTP. Please try again or click Resend to get a new one.');
         }
     }
-    
+
 
     public function renewAuth()
     {

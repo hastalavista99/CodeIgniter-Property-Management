@@ -27,8 +27,8 @@
                     </p>
                 </div>
             </div>
-            
-            <a href="<?= site_url('landlords')?>" class="text-underline text-primary text-sm my-2"><i class="fas fa-chevron-left"></i> Back to landlords</a>
+
+            <a href="<?= site_url('landlords') ?>" class="text-underline text-primary text-sm my-2"><i class="fas fa-chevron-left"></i> Back to landlords</a>
 
         </div>
         <div class="container">
@@ -86,15 +86,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body ">
+                        <div class="card-body pt-1">
 
-                            <hr class="horizontal gray-light my-4">
                             <ul class="list-group">
-                               
+
                                 <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Mobile:</strong> &nbsp; <?= esc($landlord['phone_number']) ?></li>
                                 <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Email:</strong> &nbsp; <?= esc($landlord['email']) ?></li>
                                 <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Location:</strong> &nbsp; USA</li>
-                                
+
                                 <li class="list-group-item border-0 ps-0 pb-0">
                                     <strong class="text-dark text-sm">Social:</strong> &nbsp;
                                     <a class="btn btn-facebook btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:;">
@@ -129,17 +128,17 @@
 
                             <hr class="horizontal gray-light my-4">
                             <ul class="list-group">
-                            <?php if (!empty($properties)) {  ?>
-                                <?php foreach ($properties as $property) : ?>
-                               
-                                <li class="list-group-item border-0 ps-0 text-sm d-flex align-content-between justify-content-between"><a href="<?= site_url('propertyShow?property='.$property['name'])?>"><strong class="text-capitalize"><?= esc($property['name'])?></strong></a> &nbsp; <span class="text-capitalize"><i class="material-icons opacity-10 text-danger me-2">location_on</i><?= esc($property['location']) ?></span></li>
-                                <?php endforeach ?>
+                                <?php if (!empty($properties)) {  ?>
+                                    <?php foreach ($properties as $property) : ?>
+
+                                        <li class="list-group-item border-0 ps-0 text-sm d-flex align-content-between justify-content-between"><a href="<?= site_url('propertyShow?property=' . $property['name']) ?>"><strong class="text-capitalize"><?= esc($property['name']) ?></strong></a> &nbsp; <span class="text-capitalize"><i class="material-icons opacity-10 text-danger me-2">location_on</i><?= esc($property['location']) ?></span></li>
+                                    <?php endforeach ?>
 
                                 <?php } else { ?>
                                     <li class="list-group-item border-0 ps-0 text-sm d-flex align-content-between justify-content-between">
                                         <strong class="text-capitalize">No Properties To Show</strong>
                                     </li>
-                                    <?php } ?>
+                                <?php } ?>
 
 
 

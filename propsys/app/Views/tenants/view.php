@@ -35,8 +35,20 @@
                     </a>
                 </div>
             </div>
-            <a href="<?= site_url('rent/tenants')?>" class="text-underline text-primary text-sm my-2"><i class="fas fa-chevron-left"></i> Back to Tenants</a>
+            <?php
+            if ($userInfo['role'] == 'landlord') {
+            ?>
 
+                <a href="<?= site_url('rent/my_tenants?landlord=' . $userInfo['name']) ?>" class="text-underline text-primary text-sm my-2"><i class="fas fa-chevron-left"></i> Back to Tenants</a>
+
+            <?php
+            } else {
+            ?>
+                <a href="<?= site_url('rent/tenants') ?>" class="text-underline text-primary text-sm my-2"><i class="fas fa-chevron-left"></i> Back to Tenants</a>
+
+            <?php
+            }
+            ?>
         </div>
         <div class="container">
             <?php
@@ -81,19 +93,20 @@
                                     <h6 class="mb-0">Tenant Information</h6>
                                 </div>
                                 <div class="col-md-4 text-center">
-                                    <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#editTenantModal">
-                                        <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Tenant"></i>
-                                    </a>
+
                                     <?php if ($userInfo['role'] == 'admin') { ?>
 
-
-                                        <!-- <a href="<?= site_url('deleteTenant?tenant=' . $tenant['id']) ?>" >
-                                        <i class="fas fa-trash text-danger text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Tenant"></i>
-                                    </a><?php } ?> -->
+                                        <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#editTenantModal">
+                                            <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Tenant"></i>
+                                        </a>
+                                        <!-- <a href="<?= site_url('deleteTenant?tenant=' . $tenant['id']) ?>">
+                                            <i class="fas fa-trash text-danger text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Tenant"></i>
+                                        </a> -->
+                                    <?php } ?>
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body ">
+                        <div class="card-body pt-1">
                             <ul class="list-group">
                                 <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">ID No.:</strong> &nbsp; <?= esc($tenant['id_number']) ?></li>
                                 <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Mobile:</strong> &nbsp; <?= esc($tenant['phone_number']) ?></li>

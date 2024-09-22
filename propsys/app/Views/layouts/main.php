@@ -78,7 +78,7 @@
               <a href="javascript:;" class="nav-link text-body p-0 font-weight-bold" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
               <i class="fa fa-user me-sm-1 "></i>
                 <span class="text-center d-sm-inline d-none">
-                  <?= esc($userInfo['user_name']) ?></span>
+                  <?= esc($userInfo['name']) ?></span>
                 <!-- <i class="fa fa-caret-down cursor-pointer"></i> -->
                 <i class="fa fa-caret-down"></i>
               </a>
