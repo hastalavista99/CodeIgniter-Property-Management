@@ -1,8 +1,6 @@
 <?= $this->extend('layouts/main') ?>
 <?= $this->section('title') ?><?= esc($title) ?><?= $this->endSection() ?>
 
-
-
 <?= $this->section('content') ?>
 
 <div class="col-12">
@@ -13,7 +11,6 @@
                     <h4 class="row text-capitalize ps-3"><?= esc($title) ?></h4>
                 </div>
             </div>
-
         </div>
         <div class="card-body px-0 pb-2">
             <div class="container">
@@ -68,19 +65,19 @@
                     <div class="col-md-3 mb-3">
                         <div class="input-group input-group-static mb-4">
                             <label>Deposit</label>
-                            <input type="number" class="form-control" name="deposit" value="<?= isset($bills['deposit']) ? esc($bills['deposit']) : '' ?>" placeholder=""  required>
+                            <input type="number" class="form-control" name="deposit" value="<?= isset($bills['deposit']) ? esc($bills['deposit']) : '' ?>" placeholder="" required>
                         </div>
                     </div>
                     <div class="col-md-3 mb-3">
                         <div class="input-group input-group-static mb-4">
                             <label>Commission</label>
-                            <input type="number" class="form-control" name="commission" value="<?= isset($bills['commission']) ? esc($bills['commission']) : '' ?>" placeholder=""  required>
+                            <input type="number" class="form-control" name="commission" value="<?= isset($bills['commission']) ? esc($bills['commission']) : '' ?>" placeholder="" required>
                         </div>
                     </div>
                     <div class="col-md-3 mb-3">
                         <div class="input-group input-group-static mb-4">
                             <label>Water Deposit</label>
-                            <input type="number" class="form-control" name="water" value="<?= isset($bills['water_deposit']) ? esc($bills['water_deposit']) : '' ?>" placeholder=""  required>
+                            <input type="number" class="form-control" name="water" value="<?= isset($bills['water_deposit']) ? esc($bills['water_deposit']) : '' ?>" placeholder="" required>
                         </div>
                     </div>
                     <div class="col-md-3 mb-3">
@@ -95,8 +92,6 @@
                             <input type="number" class="form-control" name="service" value="<?= isset($bills['service_charge']) ? esc($bills['service_charge']) : '' ?>" required>
                         </div>
                     </div>
-
-
                     <div class="d-flex justify-content-between">
                         <div class="col-md-2 pt-3 me-2">
                             <div>
@@ -114,8 +109,6 @@
                     </div>
                 </form>
             </div>
-
-
         </div>
     </div>
 </div>

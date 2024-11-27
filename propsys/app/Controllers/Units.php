@@ -84,6 +84,7 @@ class Units extends BaseController
         $id = $this->request->getGet('unit');
         $unitModel = new UnitsModel();
         $propertyModel = new PropertiesModel();
+        $billModel = new BillingModel();
         $landlordModel = new LandlordsModel();
         $tenantModel = new TenantModel();
         $userModel = new UserModel();
@@ -96,6 +97,7 @@ class Units extends BaseController
         $unit = $unitModel->find($id);
 
         $propId = $unit['property_id'];
+        $bills = $billModel->where('unit_id', $id)->first();
 
         $property = $propertyModel->find($propId);
         $landlordId = $property['landlord_id'];
@@ -107,7 +109,8 @@ class Units extends BaseController
             'tenant' => $ten,
             'property' => $property,
             'landlord' => $landlord,
-            'userInfo' => $userInfo
+            'userInfo' => $userInfo,
+            'bills' => $bills
         ];
 
         return view('units/view', $data);

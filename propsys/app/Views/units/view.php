@@ -23,7 +23,7 @@
             </div>
             <div class="col-md-2 pt-3">
                 <div>
-                    <a class="btn btn-outline-success" href="units">
+                    <a class="btn btn-outline-success" href="<?= site_url('rent/units')?>">
                         <i class="material-icons opacity-10 me-2">chevron_left</i>
                         back
                     </a>
@@ -159,7 +159,7 @@
                 </div>
                 <div class="text-end pt-1">
                     <p class="text-sm mb-0 text-capitalize">Rent</p>
-                    <h4 class="mb-0">$103,430</h4>
+                    <h4 class="mb-0"><?= isset($bills['rent']) ? number_format($bills['rent']) : 'N/A'?><small>/-</small></h4>
                 </div>
             </div>
             <hr class="dark horizontal my-0" />
