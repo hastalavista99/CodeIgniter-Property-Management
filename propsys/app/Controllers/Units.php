@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\BillingModel;
 use App\Models\LandlordsModel;
 use App\Models\UnitsModel;
 use App\Models\UserModel;
@@ -114,19 +115,106 @@ class Units extends BaseController
 
     public function billPage()
     {
+        helper(['form', 'url']);
         $model = new UnitsModel();
         $userModel = new UserModel();
         $property = new PropertiesModel();
+        $billModel = new BillingModel();
 
         $unitId = $this->request->getGet('unit');
         $loggedInUserId = session()->get('loggedInUser');
         $userInfo = $userModel->find($loggedInUserId);
+        $bills = $billModel->where('unit_id', $unitId)->first();
 
         $data = [
             'unit_id' => $unitId,
             'title' => 'Bills',
             'userInfo' => $userInfo,
+            'bills' => $bills,
         ];
         return view('units/bills', $data);
+    }
+
+    public function setBills()
+    {
+        helper(['form', 'url']);
+
+        $rules = [
+            'rent' => [
+                'rules' => 'required|numeric|greater_than[0]',
+                'label' => 'Rent',
+                'errors' => [
+                    'required' => 'Please provide a value for rent.',
+                    'numeric' => 'Value for rent should be a number',
+                    'greater_than' => 'Rent value should not be 0'
+                ]
+            ],
+            'deposit' => [
+                'rules' => 'required|numeric',
+                'label' => 'Deposit',
+                'errors' => [
+                    'required' => 'Please provide a value for deposit',
+                    'numeric' => 'Value for deposit should be a number'
+                ]
+            ],
+            'commission' => [
+                'rules' => 'required|numeric',
+                'label' => 'Commission',
+                'errors' => [
+                    'required' => 'Please enter value for commission',
+                    'numeric' => 'Commission value should be a number',
+                ],
+
+            ],
+            'water' => [
+                'rules' => 'required|numeric',
+                'label' => 'Water Deposit',
+                'errors' => [
+                    'required' => 'You must provide a value for water deposit',
+                    'numeric' => 'Values must be numeric',
+                ],
+            ],
+            'electricity' => [
+                'rules' => 'required|numeric',
+                'label' => 'Electricity Deposit',
+                'errors' => [
+                    'required' => 'Please provide value for electricity deposit',
+                    'numeric' => 'Values must be numeric',
+                ],
+            ],
+        ];
+
+        if (!$this->validate($rules)) {
+            $data["validated"] = $this->validator;
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
+
+        $billModel = new BillingModel();
+
+        $unitId = $this->request->getGet('unit_id');
+        $rent = $this->request->getPost('rent');
+        $commission = $this->request->getPost('commission');
+        $deposit = $this->request->getPost('deposit');
+        $water = $this->request->getPost('water');
+        $electricity = $this->request->getPost('electricity');
+        $service = $this->request->getPost('service');
+
+        $data = [
+            'unit_id' => $unitId,
+            'commission' => $commission,
+            'deposit' => $deposit,
+            'rent' => $rent,
+            'service_charge' => $service,
+            'water_deposit' => $water,
+            'electricity_deposit' => $electricity
+        ];
+
+        $query = $billModel->save($data);
+
+        if(!$query) {
+            return redirect()->to('rent/units')->with('fail', 'Something went wrong, try again later');
+        }
+
+        return redirect()->to('rent/units')->with('success', 'Bills set successfully!!');
     }
 }

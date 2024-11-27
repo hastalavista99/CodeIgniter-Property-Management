@@ -46,33 +46,53 @@
                         </button>
                     </div>
                 <?php
+                } else if (!empty(session()->getFlashdata('errors'))) {
+                ?>
+                    <ul>
+                        <?php foreach (session('errors') as $error) : ?>
+                            <li class="text-danger"><?= esc($error) ?></li>
+                        <?php endforeach ?>
+                    </ul>
+                <?php
                 }
                 ?>
 
-                <form class="row g-3 my-1" action="<?= site_url('assignTenant?unit_id=' . $unit_id) ?>" method="post">
+                <form class="row g-3 my-1" action="<?= site_url('rent/units/bills/set?unit_id=' . $unit_id) ?>" method="post">
                     <?= csrf_field() ?>
                     <div class="col-md-3 mb-3">
                         <div class="input-group input-group-static mb-4">
-                            <label>Label</label>
-                            <input type="text" class="form-control">
+                            <label>Rent</label>
+                            <input type="number" class="form-control" name="rent" value="<?= isset($bills['rent']) ? esc($bills['rent']) : '' ?>" placeholder="" required>
                         </div>
                     </div>
                     <div class="col-md-3 mb-3">
                         <div class="input-group input-group-static mb-4">
-                            <label>Label</label>
-                            <input type="text" class="form-control">
+                            <label>Deposit</label>
+                            <input type="number" class="form-control" name="deposit" value="<?= isset($bills['deposit']) ? esc($bills['deposit']) : '' ?>" placeholder=""  required>
                         </div>
                     </div>
                     <div class="col-md-3 mb-3">
                         <div class="input-group input-group-static mb-4">
-                            <label>Label</label>
-                            <input type="text" class="form-control">
+                            <label>Commission</label>
+                            <input type="number" class="form-control" name="commission" value="<?= isset($bills['commission']) ? esc($bills['commission']) : '' ?>" placeholder=""  required>
                         </div>
                     </div>
                     <div class="col-md-3 mb-3">
                         <div class="input-group input-group-static mb-4">
-                            <label>Label</label>
-                            <input type="text" class="form-control">
+                            <label>Water Deposit</label>
+                            <input type="number" class="form-control" name="water" value="<?= isset($bills['water_deposit']) ? esc($bills['water_deposit']) : '' ?>" placeholder=""  required>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="input-group input-group-static mb-4">
+                            <label>Electricity Deposit</label>
+                            <input type="number" class="form-control" name="electricity" value="<?= isset($bills['electricity_deposit']) ? esc($bills['electricity_deposit']) : '' ?>" required>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="input-group input-group-static mb-4">
+                            <label>Service</label>
+                            <input type="number" class="form-control" name="service" value="<?= isset($bills['service_charge']) ? esc($bills['service_charge']) : '' ?>" required>
                         </div>
                     </div>
 
